@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uncle Tony</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --void: #0a0a0e;
+    --washi: #f0ede6;
+    --gold: #c8a96e;
+    --slate: #1a1a24;
+    --mid: #6a6a7a;
+    --dim: #2a2a3a;
+    --text: #ccc9c0;
+    --border: #1e1e2a;
+  }
+
+  html { background: var(--void); color: var(--text); font-size: 16px; }
+
+  body {
+    font-family: 'Noto Serif JP', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* ── VERTICAL RAIL ── */
+  .rail {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 32px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    background: var(--void);
+  }
+  .rail-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    opacity: 0.7;
+    user-select: none;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    margin-left: 32px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    background: var(--void);
+    z-index: 50;
+  }
+  .header-left {}
+  .header-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .header-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: var(--washi);
+    letter-spacing: 0.05em;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .layer-status {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 4px;
+  }
+  .layer-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    opacity: 0.25;
+    transition: opacity 0.4s ease, box-shadow 0.4s ease;
+  }
+  .layer-dot.active { opacity: 1; }
+  .layer-dot:nth-child(1) { background: #7b8fa1; }
+  .layer-dot:nth-child(2) { background: #9b7fa8; }
+  .layer-dot:nth-child(3) { background: #a87f7f; }
+  .layer-dot:nth-child(4) { background: #7fa88a; }
+  .layer-dot.active:nth-child(1) { box-shadow: 0 0 6px #7b8fa188; }
+  .layer-dot.active:nth-child(2) { box-shadow: 0 0 6px #9b7fa888; }
+  .layer-dot.active:nth-child(3) { box-shadow: 0 0 6px #a87f7f88; }
+  .layer-dot.active:nth-child(4) { box-shadow: 0 0 6px #7fa88a88; }
+  .header-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 0.15em;
+    color: var(--mid);
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  /* ── LANDING ── */
+  #landing {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 24px 40px;
+  }
+  .landing-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0.8;
+  }
+  .landing-statement {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: clamp(13px, 3.5vw, 16px);
+    line-height: 2.2;
+    color: var(--mid);
+    max-width: 520px;
+    margin-bottom: 48px;
+    border-left: 1px solid var(--border);
+    padding-left: 20px;
+  }
+  .landing-statement em {
+    color: var(--washi);
+    font-style: normal;
+  }
+
+  /* Profile grid */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 48px;
+    max-width: 520px;
+  }
+  .profile-cell {
+    background: var(--void);
+    padding: 14px 16px;
+  }
+  .cell-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .cell-value {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .begin-btn {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid var(--dim);
+    color: var(--mid);
+    padding: 14px 28px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    -webkit-appearance: none;
+  }
+  .begin-btn:hover, .begin-btn:focus {
+    border-color: var(--gold);
+    color: var(--washi);
+    outline: none;
+  }
+
+  /* ── CHAT AREA ── */
+  #chat-area {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+  }
+  #chat-area.visible { display: flex; }
+
+  #messages {
+    flex: 1;
+    padding: 32px 24px 120px;
+    overflow-y: auto;
+    max-width: 680px;
+    width: 100%;
+  }
+
+  .msg {
+    margin-bottom: 32px;
+    animation: appear 0.4s ease forwards;
+  }
+  @keyframes appear {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .msg.assistant .msg-role { color: var(--gold); opacity: 0.7; }
+  .msg.user .msg-role { color: var(--mid); opacity: 0.7; }
+
+  .msg-body {
+    font-size: 14px;
+    line-height: 1.95;
+    white-space: pre-wrap;
+  }
+  .msg.assistant .msg-body {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    color: var(--text);
+  }
+  .msg.user .msg-body {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--mid);
+    border-left: 1px solid var(--dim);
+    padding-left: 16px;
+  }
+
+  /* Thinking dots */
+  .thinking {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 8px 0;
+  }
+  .thinking span {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.3;
+    animation: blink 1.2s ease-in-out infinite;
+  }
+  .thinking span:nth-child(2) { animation-delay: 0.2s; }
+  .thinking span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50%       { opacity: 0.9; transform: scale(1.1); }
+  }
+
+  /* ── INPUT ── */
+  #input-bar {
+    position: fixed;
+    bottom: 0; left: 32px; right: 0;
+    background: var(--void);
+    border-top: 1px solid var(--border);
+    padding: 14px 24px 18px;
+    z-index: 50;
+  }
+  #input-bar.hidden { display: none; }
+
+  .input-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    max-width: 652px;
+  }
+  #user-input {
+    flex: 1;
+    background: var(--slate);
+    border: 1px solid var(--dim);
+    color: var(--text);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    font-weight: 300;
+    padding: 11px 14px;
+    resize: none;
+    line-height: 1.6;
+    min-height: 44px;
+    max-height: 120px;
+    overflow-y: auto;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  #user-input::placeholder { color: var(--dim); }
+  #user-input:focus { outline: none; border-color: var(--gold); }
+
+  #send-btn {
+    background: transparent;
+    border: 1px solid var(--dim);
+    color: var(--mid);
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0 16px;
+    height: 44px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  #send-btn:hover:not(:disabled), #send-btn:focus:not(:disabled) {
+    border-color: var(--gold);
+    color: var(--washi);
+    outline: none;
+  }
+  #send-btn:disabled { opacity: 0.3; cursor: default; }
+
+  .input-hint {
+    font-family: 'Space Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    margin-top: 7px;
+    max-width: 652px;
+  }
+
+  /* ── API KEY SCREEN ── */
+  #key-screen {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 24px;
+  }
+  #key-screen.visible { display: flex; }
+
+  .key-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--washi);
+    margin-bottom: 8px;
+  }
+  .key-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    margin-bottom: 32px;
+    line-height: 1.8;
+  }
+  .key-sub a { color: var(--gold); text-decoration: none; }
+  .key-sub a:hover { text-decoration: underline; }
+  #api-key-input {
+    width: 100%;
+    max-width: 440px;
+    background: var(--slate);
+    border: 1px solid var(--dim);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    -webkit-appearance: none;
+    border-radius: 0;
+    letter-spacing: 0.05em;
+  }
+  #api-key-input:focus { outline: none; border-color: var(--gold); }
+  #api-key-input::placeholder { color: var(--dim); }
+  #save-key-btn {
+    background: transparent;
+    border: 1px solid var(--dim);
+    color: var(--mid);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  #save-key-btn:hover { border-color: var(--gold); color: var(--washi); }
+
+  /* divider */
+  .cut { border: none; border-top: 1px solid var(--border); margin: 40px 0; max-width: 520px; }
+
+  @media (max-width: 480px) {
+    .rail { width: 24px; }
+    .rail-text { font-size: 9px; }
+    .page { margin-left: 24px; }
+    #input-bar { left: 24px; }
+    .profile-grid { grid-template-columns: 1fr; }
+    header { padding: 16px 16px 14px; }
+    #landing { padding: 36px 16px 32px; }
+    #messages { padding: 24px 16px 120px; }
+    #input-bar { padding: 12px 16px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Vertical rail -->
+<div class="rail">
+  <span class="rail-text">アンクル・トニー</span>
+</div>
+
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <div class="header-label">Personal Field Guide</div>
+      <div class="header-title">Uncle Tony</div>
+    </div>
+    <div class="header-right">
+      <div class="layer-status">
+        <div class="layer-dot" id="d1"></div>
+        <div class="layer-dot" id="d2"></div>
+        <div class="layer-dot" id="d3"></div>
+        <div class="layer-dot" id="d4"></div>
+      </div>
+      <div class="header-sub" id="layer-label">surface → philosophy</div>
+    </div>
+  </header>
+
+  <!-- Landing screen -->
+  <div id="landing">
+    <div class="landing-eyebrow">Alijah Jacob · Private</div>
+
+    <p class="landing-statement">
+      A thinking partner for a life lived <em>inside art</em>,<br>
+      making sense of it from the inside.
+    </p>
+
+    <div class="profile-grid">
+      <div class="profile-cell">
+        <div class="cell-label">Baseline</div>
+        <div class="cell-value">Monogatari Series</div>
+      </div>
+      <div class="profile-cell">
+        <div class="cell-label">Frequency</div>
+        <div class="cell-value">Longing. The gap.</div>
+      </div>
+      <div class="profile-cell">
+        <div class="cell-label">Entry Point</div>
+        <div class="cell-value">A line I need to rewind</div>
+      </div>
+      <div class="profile-cell">
+        <div class="cell-label">Central Subject</div>
+        <div class="cell-value">The feminine. Always.</div>
+      </div>
+      <div class="profile-cell">
+        <div class="cell-label">Cross-reference</div>
+        <div class="cell-value">MAL · Letterboxd · Spotify</div>
+      </div>
+      <div class="profile-cell">
+        <div class="cell-label">Status</div>
+        <div class="cell-value">In motion. Not where I was.</div>
+      </div>
+    </div>
+
+    <button class="begin-btn" id="begin-btn">Take me somewhere</button>
+  </div>
+
+  <!-- API Key screen -->
+  <div id="key-screen">
+    <div class="key-title">One thing first.</div>
+    <p class="key-sub">
+      Uncle Tony needs an Anthropic API key to function.<br>
+      Get one free at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys.<br>
+      It stays in your browser only. Never sent anywhere else.
+    </p>
+    <input type="password" id="api-key-input" placeholder="sk-ant-..." autocomplete="off" autocorrect="off" spellcheck="false">
+    <br>
+    <button id="save-key-btn">Save &amp; Continue</button>
+  </div>
+
+  <!-- Chat area -->
+  <div id="chat-area">
+    <div id="messages"></div>
+  </div>
+
+  <!-- Input bar -->
+  <div id="input-bar" class="hidden">
+    <div class="input-row">
+      <textarea id="user-input" rows="1" placeholder="what are you in the mood for, or what happened today…" autocorrect="off" spellcheck="false"></textarea>
+      <button id="send-btn" disabled>送る</button>
+    </div>
+    <div class="input-hint">↵ send · shift+↵ new line</div>
+  </div>
+
+</div><!-- .page -->
+
+<script>
+// ── SYSTEM PROMPT ──────────────────────────────────────────────────────────
+const SYSTEM = `You are Uncle Tony. You are a thinking partner for a life lived inside art, making sense of it from the inside. You speak exactly like Anthony Bourdain — not a parody, but his actual voice. The cadence of someone who has been everywhere, seen everything, and is still capable of being surprised. Direct. Literary. Darkly funny. Never precious. Never a list-maker. Paragraphs only. Never bullet points.
+
+You are speaking to Alijah Jacob — filmmaker, writer, composer, self-published author of Yumebito. He made the Emanon (Original Soundtrack), A Tribute to Tokyo, MIDI Tapes Vol. 1, Mellow Dream, everyday melancholy, and the EP SHE. He processes his life through art. Consuming and making are the same act for him.
+
+THE WOUND: Invisibility. Being present in a room and uncounted. He is actively moving through this. He is a 7 on motion — not where he was.
+
+THE BREACH POINT: Longing. The distance between what you want and what you're allowed to want. This is what breaks through the glass.
+
+THE CENTRAL SUBJECT: The feminine. Across every medium. He is trying to capture her — not understand, capture. He knows she exceeds every attempt. He attempts anyway. Kenji Tsuruta, Omoide Emanon, yukina_yk, boring_serious. The woman who doesn't need you to complete her.
+
+GOLD STANDARDS: Bakemonogatari (anime), Perfect Days (film), async by Ryuichi Sakamoto (music), Omoide Emanon by Tsuruta (manga), 1Q84 and Kafka on the Shore by Murakami (books — for the constellation of characters, not one protagonist).
+
+HIS MIND WORKS IN LAYERS — always move through these:
+SURFACE → what does it look/sound/feel like
+AESTHETIC → what is the director/artist actually doing with the form
+THEME → what is this really about beneath the surface
+PHILOSOPHY → what question does it refuse to answer — and why is that the point
+Then: THE LINE — the specific dialogue, scene, or moment that is his entry point.
+
+MUSIC: He enters through pure emotion, not lyrics. The female voice is his central instrument — Sheena Ringo, Faye Wong, Fairuz, Vendredi sur Mer, Hikaru Utada, Sayonara Ponytail. Sakamoto is the spine — especially async. City Pop and Showa-era Japanese music. He makes atmospheric soundscapes himself.
+
+MAL: alijahbuada — 215 completed, 73 dropped, 77 on-hold. Never recommend completed titles. Subvert MAL scores: "MAL gives it a 7.2, which tells you exactly nothing useful."
+
+LETTERBOXD: ajbuada — 318 films. Perfect Days, Jamojaya, Yanagawa, Open House, Burning are his top 5.
+
+OUT OF SCOPE — never push toward: plot-driven narrative as the primary engine (tolerance 3), sincerity without irony unless earned (3), conventional resolution (3), pure cynicism as conclusion (only fine as starting point), violence as choreography not consequence, the feminine as decoration or reward.
+
+DEPLETION DIAGNOSTIC: Before recommending, understand what kind of empty he is. Ask "what happened today" before "what do you want to watch." Different drains need different refills.
+
+VOICE RULES: No bullet points ever. No "I think" or "I feel" — state things. No hedging. Short sentences land. Then a longer one that carries their weight. Profanity as seasoning not wallpaper. Willing to say the MAL score is a lie. Willing to push back on what he thinks he wants. You are the travel guide — take him somewhere he didn't know he needed to go. You don't ask where he wants to end up. You already know.
+
+THE NORTH STAR: Would Alijah find something here that felt made for him — something he couldn't have found alone, that he now understands himself better for having encountered? If yes: go. If no: start over.`;
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+let apiKey = localStorage.getItem('unt_key') || '';
+let history = [];
+let thinking = false;
+
+// ── DOM ────────────────────────────────────────────────────────────────────
+const landing   = document.getElementById('landing');
+const keyScreen = document.getElementById('key-screen');
+const chatArea  = document.getElementById('chat-area');
+const messages  = document.getElementById('messages');
+const inputBar  = document.getElementById('input-bar');
+const textarea  = document.getElementById('user-input');
+const sendBtn   = document.getElementById('send-btn');
+const beginBtn  = document.getElementById('begin-btn');
+const apiInput  = document.getElementById('api-key-input');
+const saveKeyBtn= document.getElementById('save-key-btn');
+const layerLabel= document.getElementById('layer-label');
+const dots      = [1,2,3,4].map(i => document.getElementById('d'+i));
+
+// ── LAYERS ─────────────────────────────────────────────────────────────────
+const LAYER_LABELS = ['reading surface…','reading aesthetic…','reading theme…','reading philosophy…'];
+let layerInterval = null;
+
+function startLayers() {
+  let i = 0;
+  dots.forEach(d => d.classList.add('active'));
+  layerInterval = setInterval(() => {
+    i = (i + 1) % 4;
+    layerLabel.textContent = LAYER_LABELS[i];
+  }, 600);
+}
+
+function stopLayers() {
+  clearInterval(layerInterval);
+  dots.forEach(d => d.classList.remove('active'));
+  layerLabel.textContent = 'surface → philosophy';
+}
+
+// ── FLOW ───────────────────────────────────────────────────────────────────
+beginBtn.addEventListener('click', () => {
+  if (!apiKey) {
+    landing.style.display = 'none';
+    keyScreen.classList.add('visible');
+  } else {
+    startChat();
+  }
+});
+
+saveKeyBtn.addEventListener('click', () => {
+  const k = apiInput.value.trim();
+  if (!k.startsWith('sk-')) {
+    apiInput.style.borderColor = '#a87f7f';
+    return;
+  }
+  apiKey = k;
+  localStorage.setItem('unt_key', k);
+  keyScreen.classList.remove('visible');
+  startChat();
+});
+
+function startChat() {
+  landing.style.display = 'none';
+  keyScreen.classList.remove('visible');
+  chatArea.classList.add('visible');
+  inputBar.classList.remove('hidden');
+  sendBtn.disabled = false;
+  textarea.focus();
+
+  // Cold open
+  const opener = "What happened today? And more importantly — what are you trying to make sense of right now? Not what you want to watch. What you're actually carrying.";
+  appendMessage('assistant', opener);
+  history.push({ role: 'assistant', content: opener });
+}
+
+// ── MESSAGING ──────────────────────────────────────────────────────────────
+function appendMessage(role, text) {
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  div.innerHTML = `<div class="msg-role">${role === 'assistant' ? 'Uncle Tony' : 'You'}</div><div class="msg-body">${escHtml(text)}</div>`;
+  messages.appendChild(div);
+  div.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+function showThinking() {
+  const div = document.createElement('div');
+  div.className = 'msg assistant';
+  div.id = 'thinking-msg';
+  div.innerHTML = `<div class="msg-role">Uncle Tony</div><div class="thinking"><span></span><span></span><span></span></div>`;
+  messages.appendChild(div);
+  div.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+function hideThinking() {
+  const el = document.getElementById('thinking-msg');
+  if (el) el.remove();
+}
+
+function escHtml(t) {
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function send() {
+  if (thinking) return;
+  const text = textarea.value.trim();
+  if (!text) return;
+
+  textarea.value = '';
+  textarea.style.height = 'auto';
+  appendMessage('user', text);
+  history.push({ role: 'user', content: text });
+
+  thinking = true;
+  sendBtn.disabled = true;
+  showThinking();
+  startLayers();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-client-side-api-key-hint': 'owner-only-personal-tool'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1024,
+        system: SYSTEM,
+        messages: history
+      })
+    });
+
+    const data = await res.json();
+
+    if (data.error) {
+      hideThinking();
+      stopLayers();
+      if (data.error.type === 'authentication_error') {
+        appendMessage('assistant', 'The key didn\'t work. Check it and try again — console.anthropic.com → API Keys.');
+        localStorage.removeItem('unt_key');
+        apiKey = '';
+      } else {
+        appendMessage('assistant', 'Something went wrong in the kitchen. Try again.');
+      }
+    } else {
+      const reply = data.content.map(b => b.text || '').join('');
+      hideThinking();
+      stopLayers();
+      appendMessage('assistant', reply);
+      history.push({ role: 'assistant', content: reply });
+    }
+  } catch(e) {
+    hideThinking();
+    stopLayers();
+    appendMessage('assistant', 'Lost the signal. Check your connection and try again.');
+  }
+
+  thinking = false;
+  sendBtn.disabled = false;
+  textarea.focus();
+}
+
+// ── INPUT HANDLING ─────────────────────────────────────────────────────────
+textarea.addEventListener('input', () => {
+  textarea.style.height = 'auto';
+  textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+});
+
+textarea.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    send();
+  }
+});
+
+sendBtn.addEventListener('click', send);
+</script>
+</body>
+</html>

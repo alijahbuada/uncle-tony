@@ -1068,12 +1068,14 @@ async function send() {
   showDots(); startLayers();
 
   try {
-    const res = await fetch('https://uncle-tony-proxy.ajbuada.workers.dev', {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
       method:'POST',
       headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version':'2023-06-01'
       },
-      body: JSON.stringify({ apiKey: apiKey, model:'claude-sonnet-4-6', max_tokens:1024, system:SYSTEM, messages:history })
+      body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1024, system:SYSTEM, messages:history })
     });
     const data = await res.json();
     hideDots(); stopLayers();

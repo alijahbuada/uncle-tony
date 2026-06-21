@@ -1073,8 +1073,7 @@ async function send() {
       headers:{
         'Content-Type':'application/json',
         'x-api-key': apiKey,
-        'anthropic-version':'2023-06-01',
-        'anthropic-dangerous-client-side-api-key-hint':'owner-only-personal-tool'
+        'anthropic-version':'2023-06-01'
       },
       body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1024, system:SYSTEM, messages:history })
     });

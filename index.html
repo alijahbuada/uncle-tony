@@ -1038,7 +1038,7 @@ async function send() {
     const data = await res.json();
     hideDots(); stopLayers();
     if (data.error) {
-      const msg = data.error.message || 'Something went wrong. Try again.';
+      const msg = JSON.stringify(data.error);
       addMsg('assistant', 'Error: ' + msg);
     } else {
       const reply = data.content.map(b=>b.text||'').join('');

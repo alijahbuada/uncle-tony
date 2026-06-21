@@ -470,6 +470,135 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
   .mag-nav { display: none; }
   .archive-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ── PREFACE ── */
+#preface { background: var(--void); }
+
+.preface-wrap {
+  max-width: 560px;
+  padding: 0 20px 40px;
+  border-left: 1px solid var(--border);
+  margin: 0 20px 40px;
+}
+
+.preface-byline {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0.7;
+}
+
+.preface-body p {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 2.1;
+  margin-bottom: 20px;
+}
+
+.preface-body p:first-child {
+  font-size: 16px;
+  color: var(--washi);
+  font-weight: 300;
+}
+
+.preface-sig {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--gold);
+  margin-top: 28px;
+  opacity: 0.8;
+  letter-spacing: 0.1em;
+}
+
+/* ── ABOUT ── */
+.about-wrap {
+  padding: 0 20px 40px;
+}
+
+.about-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.3em;
+  color: var(--mid);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border);
+  max-width: 860px;
+}
+
+@media (min-width: 700px) {
+  .about-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.about-cell {
+  background: var(--page);
+  padding: 20px 18px 24px;
+}
+
+.about-cell-head {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--washi);
+  margin-bottom: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+.about-cell-head .jp {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  opacity: 0.6;
+  margin-top: 3px;
+  font-weight: 400;
+}
+
+.about-cell-body {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  color: var(--mid);
+  line-height: 1.9;
+}
+
+
+.footer-links {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+.footer-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  color: var(--mid);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-left: 1px solid var(--border);
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.footer-link:hover { color: var(--washi); }
+.footer-link .jp { opacity: 0.45; margin-left: 5px; }
+
 </style>
 </head>
 <body>
@@ -477,7 +606,7 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
 <!-- HEADER -->
 <header class="mag-header">
   <div class="mag-header-top">
-    <div class="mag-issue">Vol. 01 · 2026 · Private Edition <span style="opacity:0.4;margin-left:8px;">私家版</span></div>
+    
     <div class="mag-tagline">A thinking partner for a life lived inside art <span style="opacity:0.35;margin-left:8px;">芸術の中に生きる</span></div>
     <nav class="mag-nav">
       <a href="#tony-section">Uncle Tony <span style="opacity:0.4;font-size:6px;">案内人</span></a>
@@ -500,7 +629,7 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
   <div class="cover-credit">David Choe · Portrait of Anthony Bourdain</div>
   <div class="cover-text">
     <div>
-      <div class="cover-kicker">Cover · Issue 01 <span class="jp">表紙</span></div>
+      <div class="cover-kicker">Cover <span class="jp">表紙</span></div>
       <h1 class="cover-headline">The man who ate<br>the whole world<br>and kept going.</h1>
       <p class="cover-sub">アンクル・トニー <span class="jp">(ankuru toni)</span> · Personal field guide to anime, film, music, manga, books, and all the art that makes sense of a life lived from the inside.</p>
     </div>
@@ -513,12 +642,59 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
   </div>
 </section>
 
+<!-- PREFACE -->
+<section id="preface">
+  <div class="section-rule">
+    <span class="section-rule-label">Preface <span class="jp">序文</span></span>
+    <div class="section-rule-line"></div>
+    
+  </div>
+
+  <div class="preface-wrap">
+    <div class="preface-byline">Alijah Jacob · San Diego · 2026</div>
+
+    <div class="preface-body">
+      <p>I've never trusted other people's taste to tell me what I should feel.</p>
+
+      <p>Not because I think I'm above it. But because the things that have actually moved me — the anime that stopped me cold, the films I've watched alone at 2am, the albums I've returned to without meaning to — none of them arrived through an algorithm. They arrived through something quieter. A pull I couldn't always name. An image that stayed with me for days. A line of dialogue I needed to rewind.</p>
+
+      <p>This is my attempt to map that pull. To understand not just what I love but why — what it says about how I see, what I'm looking for, what I'm still trying to work out. Every entry in this archive is a coordinate. Uncle Tony is the guide who reads the map.</p>
+
+      <p>I built this for myself. But if you're here, maybe something in it speaks to you too. Maybe you also know the feeling of sitting alone with something that got all the way in — and not having the words for it yet.</p>
+
+      <p>This is my attempt at the words.</p>
+    </div>
+
+    <div class="preface-sig">— Alijah Jacob</div>
+  </div>
+
+  <!-- ABOUT UNCLE TONY -->
+  <div class="about-wrap">
+    <div class="about-label">What is Uncle Tony? <span class="jp">案内人とは</span></div>
+    <div class="about-grid">
+      <div class="about-cell">
+        <div class="about-cell-head">Not an algorithm <span class="jp">アルゴリズムではない</span></div>
+        <div class="about-cell-body">Every recommendation platform is built on aggregation — what most people liked, averaged and offered back to you. Uncle Tony doesn't know what other people think. He knows me. My history, my wound, my frequency, my central subject. He was built from months of psychological taste interviews, playlist deep dives, and honest personal excavation.</div>
+      </div>
+      <div class="about-cell">
+        <div class="about-cell-head">A thinking partner <span class="jp">思考のパートナー</span></div>
+        <div class="about-cell-body">He speaks like Anthony Bourdain — direct, literary, darkly funny, never precious. He moves through four layers with every recommendation: surface, aesthetic, theme, philosophy. Then he gives you the line — the specific moment that is your entry point. He asks what happened to you today before he asks what you want to watch.</div>
+      </div>
+      <div class="about-cell">
+        <div class="about-cell-head">A living document <span class="jp">生きている記録</span></div>
+        <div class="about-cell-body">Uncle Tony covers anime, film, music, manga, books, and gacha. He updates as I grow. The soul of this page — a thinking partner for a life lived inside art, making sense of it from the inside — doesn't change. The technology is just the vessel. The vessel is replaceable. The map is permanent.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- UNCLE TONY -->
 <section id="tony-section">
   <div class="section-rule">
     <span class="section-rule-label">Uncle Tony <span class="jp">案内人</span></span>
     <div class="section-rule-line"></div>
-    <span class="section-rule-num">001</span>
+    
   </div>
 
   <div class="tony-intro">
@@ -564,7 +740,7 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
   <div class="section-rule">
     <span class="section-rule-label">Archive <span class="jp">記録庫</span></span>
     <div class="section-rule-line"></div>
-    <span class="section-rule-num">002</span>
+    
   </div>
 
   <div class="archive-grid">
@@ -576,7 +752,6 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
       <div class="archive-meta">
         <div class="archive-medium">Anime <span style="opacity:0.5;">アニメ</span></div>
         <div class="archive-title">Bakemonogatari</div>
-        <div class="archive-detail">Shaft · 2009 · Language as combat. The benchmark against which everything is measured.</div>
       </div>
     </div>
 
@@ -587,7 +762,6 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
       <div class="archive-meta">
         <div class="archive-medium">Film <span style="opacity:0.5;">映画</span></div>
         <div class="archive-title">Perfect Days</div>
-        <div class="archive-detail">Wim Wenders · 2023 · Peace and grief in the same frame. Neither wins.</div>
       </div>
     </div>
 
@@ -598,7 +772,6 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
       <div class="archive-meta">
         <div class="archive-medium">Manga <span style="opacity:0.5;">漫画</span></div>
         <div class="archive-title">Omoide Emanon</div>
-        <div class="archive-detail">Kenji Tsuruta · The feminine as mythic, untranslatable, not for you to possess.</div>
       </div>
     </div>
 
@@ -609,7 +782,6 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
       <div class="archive-meta">
         <div class="archive-medium">Music <span style="opacity:0.5;">音楽</span></div>
         <div class="archive-title">async</div>
-        <div class="archive-detail">Ryuichi Sakamoto · 2017 · Silence as the main instrument. The most private signal.</div>
       </div>
     </div>
 
@@ -620,31 +792,20 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
       <div class="archive-meta">
         <div class="archive-medium">Book <span style="opacity:0.5;">小説</span></div>
         <div class="archive-title">1Q84</div>
-        <div class="archive-detail">Haruki Murakami · A world populated enough to find yourself across multiple people.</div>
       </div>
     </div>
 
     <div class="archive-cell">
       <div class="archive-img-wrap">
-        <img src="work.jpg" alt="SHE / Yumebito" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.85);">
+        <img src="work.jpg" alt="More Than Words" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.85);">
       </div>
       <div class="archive-meta">
         <div class="archive-medium">Own Work <span style="opacity:0.5;">自作</span></div>
-        <div class="archive-title">SHE / Yumebito</div>
-        <div class="archive-detail">Alijah Jacob · 2025–2026 · The attempt to capture what exceeds every attempt.</div>
+        <div class="archive-title">More Than Words</div>
       </div>
     </div>
 
-    <div class="archive-cell">
-      <div class="archive-img-wrap">
-        <img src="gacha.jpg" alt="Gacha" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.85);">
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Gacha <span style="opacity:0.5;">ガチャ</span></div>
-        <div class="archive-title">The Open Frontier</div>
-        <div class="archive-detail">Nothing has breached the glass yet. Uncle Tony is still hunting for the world worth entering.</div>
-      </div>
-    </div>
+
 
   </div>
 </section>
@@ -661,7 +822,17 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
 <!-- FOOTER -->
 <footer class="mag-footer">
   <div class="footer-title">アンクル・トニー</div>
-  <div class="footer-meta">Private <span style="opacity:0.5;">私用</span> · Vol. 01 · 2026</div>
+  <div class="footer-links">
+    <a href="https://open.spotify.com/artist/30oRPgusaTuEWKWxcP20GN" target="_blank" class="footer-link">
+      Spotify <span class="jp">音楽</span>
+    </a>
+    <a href="https://myanimelist.net/profile/alijahbuada" target="_blank" class="footer-link">
+      MyAnimeList <span class="jp">アニメ</span>
+    </a>
+    <a href="https://letterboxd.com/ajbuada" target="_blank" class="footer-link">
+      Letterboxd <span class="jp">映画</span>
+    </a>
+  </div>
 </footer>
 
 <script>

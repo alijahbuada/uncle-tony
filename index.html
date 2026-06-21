@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>アンクル・トニー — Field Guide</title>
+<title>アンクル・トニー</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -14,9 +14,7 @@
   --void: #080808;
   --page: #0e0e10;
   --washi: #f2ede4;
-  --cream: #d4cfc6;
   --gold: #c8a96e;
-  --red: #c0392b;
   --mid: #5a5a6a;
   --dim: #222230;
   --border: #1c1c26;
@@ -24,26 +22,16 @@
 }
 
 html { background: var(--void); color: var(--text); scroll-behavior: smooth; }
+body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidden; }
 
-body {
-  font-family: 'Noto Serif JP', serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ── MAGAZINE HEADER ── */
-.mag-header {
-  border-bottom: 3px solid var(--washi);
-  padding: 0;
-  background: var(--void);
-  position: relative;
-  z-index: 100;
-}
+/* ── HEADER ── */
+.mag-header { border-bottom: 3px solid var(--washi); background: var(--void); }
 
 .mag-header-top {
   display: flex;
   align-items: stretch;
   border-bottom: 1px solid var(--border);
+  overflow-x: auto;
 }
 
 .mag-issue {
@@ -56,26 +44,23 @@ body {
   border-right: 1px solid var(--border);
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 .mag-tagline {
   font-family: 'Space Mono', monospace;
   font-size: 7px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   color: var(--mid);
   text-transform: uppercase;
   padding: 8px 16px;
   display: flex;
   align-items: center;
   flex: 1;
+  white-space: nowrap;
 }
 
-.mag-nav {
-  display: flex;
-  align-items: center;
-  gap: 0;
-}
-
+.mag-nav { display: flex; align-items: center; }
 .mag-nav a {
   font-family: 'Space Mono', monospace;
   font-size: 7px;
@@ -86,6 +71,7 @@ body {
   padding: 8px 14px;
   border-left: 1px solid var(--border);
   transition: color 0.2s;
+  white-space: nowrap;
 }
 .mag-nav a:hover { color: var(--washi); }
 
@@ -108,18 +94,13 @@ body {
 .mag-title-en {
   font-family: 'Space Mono', monospace;
   font-size: 8px;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.25em;
   color: var(--mid);
   text-transform: uppercase;
   text-align: right;
-  line-height: 1.8;
+  line-height: 2;
 }
-
-.mag-title-en span {
-  display: block;
-  color: var(--gold);
-  font-size: 9px;
-}
+.mag-title-en span { display: block; color: var(--gold); font-size: 9px; }
 
 /* ── COVER ── */
 .cover {
@@ -128,9 +109,54 @@ body {
   height: 92vh;
   max-height: 900px;
   overflow: hidden;
-  background: #111;
+  background: #0e0e12;
 }
 
+.cover-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.cover-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px),
+    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px);
+}
+.cover-placeholder-kanji {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 200;
+  font-size: clamp(80px, 20vw, 160px);
+  color: var(--gold);
+  opacity: 0.07;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+}
+.cover-placeholder-note {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  color: var(--mid);
+  text-transform: uppercase;
+  opacity: 0.35;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 20px;
+  line-height: 2;
+}
+
+/* real cover image — swap in when ready */
 .cover-img {
   width: 100%;
   height: 100%;
@@ -143,19 +169,12 @@ body {
 .cover-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 30%,
-    rgba(8,8,8,0.4) 60%,
-    rgba(8,8,8,0.92) 100%
-  );
+  background: linear-gradient(to bottom, transparent 30%, rgba(8,8,8,0.4) 60%, rgba(8,8,8,0.92) 100%);
 }
 
 .cover-text {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0; left: 0; right: 0;
   padding: 32px 24px 28px;
   display: grid;
   grid-template-columns: 1fr auto;
@@ -172,72 +191,68 @@ body {
   margin-bottom: 10px;
   opacity: 0.9;
 }
+.cover-kicker .jp { opacity: 0.5; margin-left: 8px; font-size: 8px; }
 
 .cover-headline {
   font-family: 'Noto Serif JP', serif;
   font-weight: 300;
-  font-size: clamp(22px, 6vw, 40px);
+  font-size: clamp(20px, 5.5vw, 38px);
   color: var(--washi);
-  line-height: 1.3;
+  line-height: 1.35;
   letter-spacing: 0.02em;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .cover-sub {
   font-family: 'Space Mono', monospace;
   font-size: 9px;
   color: var(--mid);
-  letter-spacing: 0.1em;
-  line-height: 1.8;
+  letter-spacing: 0.08em;
+  line-height: 1.9;
   max-width: 380px;
 }
+.cover-sub .jp { opacity: 0.45; font-size: 7px; }
 
-.cover-right {
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.cover-label-stack {
+.cover-labels {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   align-items: flex-end;
+  flex-shrink: 0;
 }
-
 .cover-label {
   font-family: 'Space Mono', monospace;
   font-size: 7px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   color: var(--mid);
   text-transform: uppercase;
   border: 1px solid var(--dim);
   padding: 4px 8px;
   white-space: nowrap;
 }
+.cover-label .jp { opacity: 0.45; margin-left: 6px; }
 
 .cover-credit {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 16px; right: 16px;
   font-family: 'Space Mono', monospace;
   font-size: 6px;
   letter-spacing: 0.15em;
   color: var(--mid);
   text-transform: uppercase;
-  opacity: 0.5;
+  opacity: 0.4;
   writing-mode: vertical-rl;
 }
 
-/* ── SECTION HEADERS ── */
+/* ── SECTION RULE ── */
 .section-rule {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 16px;
   padding: 0 20px;
-  margin: 40px 0 24px;
+  margin: 36px 0 24px;
 }
-
 .section-rule-label {
   font-family: 'Space Mono', monospace;
   font-size: 8px;
@@ -246,12 +261,8 @@ body {
   text-transform: uppercase;
   white-space: nowrap;
 }
-
-.section-rule-line {
-  height: 1px;
-  background: var(--border);
-}
-
+.section-rule-label .jp { opacity: 0.5; font-size: 7px; letter-spacing: 0.1em; margin-left: 6px; }
+.section-rule-line { height: 1px; background: var(--border); }
 .section-rule-num {
   font-family: 'Space Mono', monospace;
   font-size: 8px;
@@ -259,147 +270,24 @@ body {
   color: var(--dim);
 }
 
-/* ── ARCHIVE GRID ── */
-#archive {
-  padding: 0 12px 40px;
-}
-
-.archive-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: var(--border);
-}
-
-@media (min-width: 600px) {
-  .archive-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 900px) {
-  .archive-grid { grid-template-columns: repeat(4, 1fr); }
-}
-
-.archive-cell {
-  background: var(--page);
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: background 0.15s;
-  text-decoration: none;
-}
-.archive-cell:hover { background: #13131a; }
-
-.archive-img-wrap {
-  width: 100%;
-  aspect-ratio: 3/4;
-  overflow: hidden;
-  background: var(--dim);
-  position: relative;
-}
-
-.archive-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.4s ease;
-  filter: saturate(0.85);
-}
-.archive-cell:hover .archive-img-wrap img { transform: scale(1.03); }
-
-.archive-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  opacity: 0.3;
-}
-
-.archive-placeholder-icon {
-  font-size: 20px;
-  opacity: 0.4;
-}
-
-.archive-placeholder-text {
-  font-family: 'Space Mono', monospace;
-  font-size: 7px;
-  letter-spacing: 0.15em;
-  color: var(--mid);
-  text-transform: uppercase;
-}
-
-.archive-meta {
-  padding: 10px 12px 14px;
-  flex: 1;
-  border-top: 1px solid var(--border);
-}
-
-.archive-medium {
-  font-family: 'Space Mono', monospace;
-  font-size: 6px;
-  letter-spacing: 0.25em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 5px;
-  opacity: 0.8;
-}
-
-.archive-title {
-  font-family: 'Noto Serif JP', serif;
-  font-weight: 300;
-  font-size: 12px;
-  color: var(--washi);
-  line-height: 1.5;
-  margin-bottom: 4px;
-}
-
-.archive-detail {
-  font-family: 'Space Mono', monospace;
-  font-size: 7px;
-  letter-spacing: 0.05em;
-  color: var(--mid);
-  line-height: 1.6;
-}
-
-/* wide cell spans 2 columns */
-.archive-cell.wide {
-  grid-column: span 2;
-}
-.archive-cell.wide .archive-img-wrap {
-  aspect-ratio: 16/9;
-}
-
-/* ── DIVIDER ── */
-.mag-divider {
-  height: 3px;
-  background: var(--washi);
-  margin: 40px 0 0;
-}
-
 /* ── UNCLE TONY SECTION ── */
-#tony-section {
-  background: var(--void);
-  padding-bottom: 0;
-}
+#tony-section { background: var(--void); }
 
 .tony-intro {
-  padding: 32px 20px 24px;
-  max-width: 560px;
+  padding: 0 20px 24px;
+  max-width: 580px;
 }
-
-.tony-intro-eyebrow {
+.tony-eyebrow {
   font-family: 'Space Mono', monospace;
   font-size: 7px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   color: var(--gold);
   text-transform: uppercase;
   margin-bottom: 14px;
   opacity: 0.8;
 }
-
-.tony-intro-text {
+.tony-eyebrow .jp { opacity: 0.5; }
+.tony-statement {
   font-family: 'Noto Serif JP', serif;
   font-weight: 300;
   font-size: 14px;
@@ -408,207 +296,45 @@ body {
   border-left: 1px solid var(--border);
   padding-left: 18px;
 }
+.tony-statement em { color: var(--washi); font-style: normal; }
 
-.tony-intro-text em {
-  color: var(--washi);
-  font-style: normal;
-}
-
-/* ── CHAT ── */
-#chat-wrap {
-  border-top: 1px solid var(--border);
-}
-
-#messages {
-  padding: 28px 20px 140px;
-  max-width: 680px;
-}
-
-.msg { margin-bottom: 28px; animation: appear 0.4s ease forwards; }
-@keyframes appear {
-  from { opacity: 0; transform: translateY(5px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.msg-role {
-  font-family: 'Space Mono', monospace;
-  font-size: 7px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  margin-bottom: 9px;
-}
-.msg.assistant .msg-role { color: var(--gold); opacity: 0.7; }
-.msg.user .msg-role { color: var(--mid); opacity: 0.6; }
-
-.msg-body {
-  font-size: 14px;
-  line-height: 1.95;
-  white-space: pre-wrap;
-}
-.msg.assistant .msg-body {
-  font-family: 'Noto Serif JP', serif;
-  font-weight: 300;
-  color: var(--text);
-}
-.msg.user .msg-body {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  color: var(--mid);
-  border-left: 1px solid var(--dim);
-  padding-left: 14px;
-}
-
-.thinking {
-  display: flex; gap: 6px; align-items: center; padding: 6px 0;
-}
-.thinking span {
-  width: 4px; height: 4px; border-radius: 50%;
-  background: var(--gold); opacity: 0.3;
-  animation: blink 1.2s ease-in-out infinite;
-}
-.thinking span:nth-child(2) { animation-delay: 0.2s; }
-.thinking span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes blink {
-  0%,100% { opacity: 0.2; transform: scale(0.8); }
-  50%      { opacity: 0.9; transform: scale(1.1); }
-}
-
-/* ── INPUT ── */
-#input-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: var(--void);
-  border-top: 1px solid var(--border);
-  padding: 12px 20px 16px;
-  z-index: 200;
-  display: none;
-}
-#input-bar.visible { display: block; }
-
-.input-row {
-  display: flex; gap: 10px; align-items: flex-end;
-  max-width: 660px;
-}
-
-#user-input {
-  flex: 1;
-  background: #0e0e14;
-  border: 1px solid var(--dim);
-  color: var(--text);
-  font-family: 'Noto Serif JP', serif;
-  font-size: 13px;
-  font-weight: 300;
-  padding: 10px 13px;
-  resize: none;
-  line-height: 1.6;
-  min-height: 42px;
-  max-height: 110px;
-  overflow-y: auto;
-  transition: border-color 0.2s;
-  border-radius: 0;
-  -webkit-appearance: none;
-}
-#user-input::placeholder { color: var(--dim); }
-#user-input:focus { outline: none; border-color: var(--gold); }
-
-#send-btn {
-  background: transparent;
-  border: 1px solid var(--dim);
-  color: var(--mid);
-  font-family: 'Space Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 0 14px;
-  height: 42px;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-  flex-shrink: 0;
-  border-radius: 0;
-  -webkit-appearance: none;
-}
-#send-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--washi); }
-#send-btn:disabled { opacity: 0.3; cursor: default; }
-
-.input-hint {
-  font-family: 'Space Mono', monospace;
-  font-size: 7px;
-  letter-spacing: 0.1em;
-  color: var(--dim);
-  margin-top: 6px;
-}
-
-/* ── KEY SCREEN ── */
-#key-screen {
-  display: none;
-  padding: 32px 20px;
-}
+/* key screen */
+#key-screen { display: none; padding: 0 20px 24px; }
 #key-screen.visible { display: block; }
-
-.key-title {
-  font-family: 'Noto Serif JP', serif;
-  font-weight: 300;
-  font-size: 16px;
-  color: var(--washi);
-  margin-bottom: 8px;
-}
-.key-sub {
-  font-family: 'Space Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 0.08em;
-  color: var(--mid);
-  margin-bottom: 24px;
-  line-height: 2;
-}
+.key-title { font-family: 'Noto Serif JP', serif; font-weight: 300; font-size: 16px; color: var(--washi); margin-bottom: 8px; }
+.key-sub { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.08em; color: var(--mid); margin-bottom: 20px; line-height: 2; }
 .key-sub a { color: var(--gold); text-decoration: none; }
-
 #api-key-input {
-  width: 100%;
-  max-width: 420px;
-  background: #0e0e14;
-  border: 1px solid var(--dim);
-  color: var(--text);
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  padding: 11px 13px;
-  margin-bottom: 14px;
-  border-radius: 0;
-  -webkit-appearance: none;
-  display: block;
-  letter-spacing: 0.04em;
+  width: 100%; max-width: 420px;
+  background: #0e0e14; border: 1px solid var(--dim);
+  color: var(--text); font-family: 'Space Mono', monospace; font-size: 10px;
+  padding: 11px 13px; margin-bottom: 12px; border-radius: 0; -webkit-appearance: none; display: block;
 }
 #api-key-input:focus { outline: none; border-color: var(--gold); }
 #api-key-input::placeholder { color: var(--dim); }
-
 #save-key-btn {
-  background: transparent;
-  border: 1px solid var(--dim);
-  color: var(--mid);
-  font-family: 'Space Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 11px 22px;
-  cursor: pointer;
-  transition: all 0.2s;
-  border-radius: 0;
-  -webkit-appearance: none;
+  background: transparent; border: 1px solid var(--dim); color: var(--mid);
+  font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 11px 22px; cursor: pointer; transition: all 0.2s; border-radius: 0; -webkit-appearance: none;
 }
 #save-key-btn:hover { border-color: var(--gold); color: var(--washi); }
 
-/* ── LAYER INDICATOR ── */
+/* begin button */
+.tony-begin {
+  display: inline-block; background: transparent; border: 1px solid var(--dim);
+  color: var(--mid); padding: 13px 26px;
+  font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.2s; margin: 0 20px 28px;
+  -webkit-appearance: none; border-radius: 0;
+}
+.tony-begin:hover { border-color: var(--gold); color: var(--washi); }
+
+/* layer bar */
 .layer-bar {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--border);
+  display: flex; gap: 5px; align-items: center;
+  padding: 10px 20px; border-bottom: 1px solid var(--border);
 }
-.layer-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  opacity: 0.2; transition: opacity 0.4s, box-shadow 0.4s;
-}
+.layer-dot { width: 5px; height: 5px; border-radius: 50%; opacity: 0.2; transition: opacity 0.4s, box-shadow 0.4s; }
 .layer-dot.on { opacity: 1; }
 .layer-dot:nth-child(1) { background: #7b8fa1; }
 .layer-dot:nth-child(2) { background: #9b7fa8; }
@@ -619,78 +345,143 @@ body {
 .layer-dot.on:nth-child(3) { box-shadow: 0 0 6px #a87f7f88; }
 .layer-dot.on:nth-child(4) { box-shadow: 0 0 6px #7fa88a88; }
 .layer-lbl {
-  font-family: 'Space Mono', monospace;
-  font-size: 7px;
-  letter-spacing: 0.15em;
-  color: var(--mid);
-  text-transform: uppercase;
-  margin-left: 6px;
-  opacity: 0.6;
+  font-family: 'Space Mono', monospace; font-size: 7px;
+  letter-spacing: 0.15em; color: var(--mid); text-transform: uppercase; margin-left: 6px; opacity: 0.6;
 }
 
-/* ── BEGIN BUTTON ── */
-.tony-begin {
-  display: inline-block;
-  background: transparent;
-  border: 1px solid var(--dim);
-  color: var(--mid);
-  padding: 13px 26px;
-  font-family: 'Space Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin: 0 20px 32px;
-  -webkit-appearance: none;
-  border-radius: 0;
-}
-.tony-begin:hover { border-color: var(--gold); color: var(--washi); }
+/* messages */
+#chat-wrap { display: none; }
+#messages { padding: 28px 20px 140px; max-width: 680px; }
+.msg { margin-bottom: 28px; animation: appear 0.4s ease forwards; }
+@keyframes appear { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+.msg-role { font-family: 'Space Mono', monospace; font-size: 7px; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 9px; }
+.msg.assistant .msg-role { color: var(--gold); opacity: 0.7; }
+.msg.user .msg-role { color: var(--mid); opacity: 0.6; }
+.msg-body { font-size: 14px; line-height: 1.95; white-space: pre-wrap; }
+.msg.assistant .msg-body { font-family: 'Noto Serif JP', serif; font-weight: 300; color: var(--text); }
+.msg.user .msg-body { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--mid); border-left: 1px solid var(--dim); padding-left: 14px; }
+.thinking { display: flex; gap: 6px; align-items: center; padding: 6px 0; }
+.thinking span { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); opacity: 0.3; animation: blink 1.2s ease-in-out infinite; }
+.thinking span:nth-child(2) { animation-delay: 0.2s; }
+.thinking span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink { 0%,100% { opacity:0.2; transform:scale(0.8); } 50% { opacity:0.9; transform:scale(1.1); } }
 
-/* ── MAG FOOTER ── */
+/* ── DIVIDER ── */
+.mag-divider { height: 3px; background: var(--washi); margin: 36px 0 0; }
+
+/* ── ARCHIVE ── */
+#archive { padding: 0 12px 40px; }
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+@media (min-width: 560px) { .archive-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 900px) { .archive-grid { grid-template-columns: repeat(7, 1fr); } }
+
+.archive-cell { background: var(--page); display: flex; flex-direction: column; }
+
+.archive-img-wrap {
+  width: 100%; aspect-ratio: 2/3;
+  overflow: hidden; background: var(--dim); position: relative;
+}
+
+.archive-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px; position: relative; overflow: hidden;
+}
+.archive-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px),
+    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px);
+}
+.archive-placeholder-icon {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 200; font-size: 32px;
+  color: var(--gold); opacity: 0.22;
+  letter-spacing: 0.1em; position: relative; z-index: 1;
+}
+.archive-placeholder-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 6px; letter-spacing: 0.2em;
+  color: var(--mid); text-transform: uppercase;
+  opacity: 0.28; position: relative; z-index: 1;
+  text-align: center; padding: 0 6px;
+}
+
+.archive-meta { padding: 10px 11px 14px; flex: 1; border-top: 1px solid var(--border); }
+.archive-medium {
+  font-family: 'Space Mono', monospace;
+  font-size: 6px; letter-spacing: 0.2em;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 5px; opacity: 0.8;
+}
+.archive-title { font-family: 'Noto Serif JP', serif; font-weight: 300; font-size: 11px; color: var(--washi); line-height: 1.5; margin-bottom: 5px; }
+.archive-detail { font-family: 'Space Mono', monospace; font-size: 6px; letter-spacing: 0.03em; color: var(--mid); line-height: 1.7; }
+
+/* ── INPUT BAR ── */
+#input-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--void); border-top: 1px solid var(--border);
+  padding: 12px 20px 16px; z-index: 200; display: none;
+}
+#input-bar.visible { display: block; }
+.input-row { display: flex; gap: 10px; align-items: flex-end; max-width: 660px; }
+#user-input {
+  flex: 1; background: #0e0e14; border: 1px solid var(--dim);
+  color: var(--text); font-family: 'Noto Serif JP', serif;
+  font-size: 13px; font-weight: 300; padding: 10px 13px;
+  resize: none; line-height: 1.6; min-height: 42px; max-height: 110px;
+  overflow-y: auto; transition: border-color 0.2s; border-radius: 0; -webkit-appearance: none;
+}
+#user-input::placeholder { color: var(--dim); }
+#user-input:focus { outline: none; border-color: var(--gold); }
+#send-btn {
+  background: transparent; border: 1px solid var(--dim); color: var(--mid);
+  font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.2em;
+  text-transform: uppercase; padding: 0 14px; height: 42px;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+  border-radius: 0; -webkit-appearance: none;
+}
+#send-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--washi); }
+#send-btn:disabled { opacity: 0.3; cursor: default; }
+.input-hint { font-family: 'Space Mono', monospace; font-size: 7px; letter-spacing: 0.1em; color: var(--dim); margin-top: 6px; }
+
+/* ── FOOTER ── */
 .mag-footer {
   border-top: 3px solid var(--washi);
   padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
   background: var(--void);
 }
-.footer-title {
-  font-family: 'Noto Serif JP', serif;
-  font-weight: 200;
-  font-size: 14px;
-  color: var(--mid);
-  letter-spacing: 0.2em;
-}
-.footer-meta {
-  font-family: 'Space Mono', monospace;
-  font-size: 7px;
-  letter-spacing: 0.15em;
-  color: var(--dim);
-  text-transform: uppercase;
-}
+.footer-title { font-family: 'Noto Serif JP', serif; font-weight: 200; font-size: 14px; color: var(--mid); letter-spacing: 0.2em; }
+.footer-meta { font-family: 'Space Mono', monospace; font-size: 7px; letter-spacing: 0.15em; color: var(--dim); text-transform: uppercase; }
 
 @media (max-width: 480px) {
-  .mag-title-jp { font-size: 32px; }
-  .cover-headline { font-size: 20px; }
-  .cover-label-stack { display: none; }
+  .mag-title-jp { font-size: 28px; }
+  .cover-headline { font-size: 18px; }
+  .cover-labels { display: none; }
   .mag-nav { display: none; }
   .archive-grid { grid-template-columns: repeat(2, 1fr); }
-  .archive-cell.wide { grid-column: span 2; }
 }
 </style>
 </head>
 <body>
 
-<!-- ── MAGAZINE HEADER ── -->
+<!-- HEADER -->
 <header class="mag-header">
   <div class="mag-header-top">
-    <div class="mag-issue">Vol. 01 · 2026 · Private Edition</div>
-    <div class="mag-tagline">A thinking partner for a life lived inside art</div>
+    <div class="mag-issue">Vol. 01 · 2026 · Private Edition <span style="opacity:0.4;margin-left:8px;">私家版</span></div>
+    <div class="mag-tagline">A thinking partner for a life lived inside art <span style="opacity:0.35;margin-left:8px;">芸術の中に生きる</span></div>
     <nav class="mag-nav">
-      <a href="#archive">Archive</a>
-      <a href="#tony-section">Uncle Tony</a>
+      <a href="#tony-section">Uncle Tony <span style="opacity:0.4;font-size:6px;">案内人</span></a>
+      <a href="#archive">Archive <span style="opacity:0.4;font-size:6px;">記録庫</span></a>
     </nav>
   </div>
   <div class="mag-title-row">
@@ -702,206 +493,44 @@ body {
   </div>
 </header>
 
-<!-- ── COVER ── -->
+<!-- COVER -->
 <section class="cover">
-  <img class="cover-img" src="cover.jpg" alt="Anthony Bourdain by David Choe">
+  <!-- PLACEHOLDER: Replace the div below with <img class="cover-img" src="cover.jpg" alt="David Choe · Anthony Bourdain"> when on desktop -->
+  <div class="cover-placeholder">
+    <div class="cover-placeholder-kanji">顔</div>
+    <div class="cover-placeholder-note">
+      David Choe · Portrait of Anthony Bourdain<br>
+      Replace this with cover.jpg on desktop
+    </div>
+  </div>
   <div class="cover-overlay"></div>
   <div class="cover-credit">David Choe · Portrait of Anthony Bourdain</div>
   <div class="cover-text">
     <div>
-      <div class="cover-kicker">Cover · Issue 01</div>
+      <div class="cover-kicker">Cover · Issue 01 <span class="jp">表紙</span></div>
       <h1 class="cover-headline">The man who ate<br>the whole world<br>and kept going.</h1>
-      <p class="cover-sub">アンクル・トニー · Personal field guide to anime, film, music, manga, and all the art that makes sense of a life lived from the inside.</p>
+      <p class="cover-sub">アンクル・トニー <span class="jp">(ankuru toni)</span> · Personal field guide to anime, film, music, manga, books, and all the art that makes sense of a life lived from the inside.</p>
     </div>
-    <div class="cover-right">
-      <div class="cover-label-stack">
-        <div class="cover-label">Baseline: Monogatari</div>
-        <div class="cover-label">Freq: Longing</div>
-        <div class="cover-label">MAL: alijahbuada</div>
-        <div class="cover-label">In motion →</div>
-      </div>
+    <div class="cover-labels">
+      <div class="cover-label">Baseline: Monogatari <span class="jp">基準</span></div>
+      <div class="cover-label">Frequency: Longing <span class="jp">憧憬</span></div>
+      <div class="cover-label">MAL: alijahbuada <span class="jp">記録</span></div>
+      <div class="cover-label">In motion → <span class="jp">前進中</span></div>
     </div>
   </div>
 </section>
 
-<!-- ── ARCHIVE ── -->
-<section id="archive">
+<!-- UNCLE TONY -->
+<section id="tony-section">
   <div class="section-rule">
-    <span class="section-rule-label">Archive</span>
+    <span class="section-rule-label">Uncle Tony <span class="jp">案内人</span></span>
     <div class="section-rule-line"></div>
     <span class="section-rule-num">001</span>
   </div>
 
-  <div class="archive-grid">
-
-    <!-- WIDE FEATURE -->
-    <div class="archive-cell wide">
-      <div class="archive-img-wrap">
-        <div class="archive-placeholder">
-          <div class="archive-placeholder-icon">映</div>
-          <div class="archive-placeholder-text">Add image</div>
-        </div>
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Anime · Gold Standard</div>
-        <div class="archive-title">Bakemonogatari</div>
-        <div class="archive-detail">Shaft · 2009 · Language as combat. Visual direction as an extension of the words. The benchmark against which everything is measured.</div>
-      </div>
-    </div>
-
-    <!-- FILM -->
-    <div class="archive-cell">
-      <div class="archive-img-wrap">
-        <div class="archive-placeholder">
-          <div class="archive-placeholder-icon">映</div>
-          <div class="archive-placeholder-text">Add image</div>
-        </div>
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Film · №1</div>
-        <div class="archive-title">Perfect Days</div>
-        <div class="archive-detail">Wim Wenders · 2023 · Peace and grief in the same frame. Neither wins.</div>
-      </div>
-    </div>
-
-    <!-- MANGA -->
-    <div class="archive-cell">
-      <div class="archive-img-wrap">
-        <div class="archive-placeholder">
-          <div class="archive-placeholder-icon">書</div>
-          <div class="archive-placeholder-text">Add image</div>
-        </div>
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Manga · Central Subject</div>
-        <div class="archive-title">Omoide Emanon</div>
-        <div class="archive-detail">Kenji Tsuruta · The feminine as mythic, untranslatable, not for you to possess.</div>
-      </div>
-    </div>
-
-    <!-- MUSIC -->
-    <div class="archive-cell">
-      <div class="archive-img-wrap">
-        <div class="archive-placeholder">
-          <div class="archive-placeholder-icon">音</div>
-          <div class="archive-placeholder-text">Add image</div>
-        </div>
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Music · Spine</div>
-        <div class="archive-title">async</div>
-        <div class="archive-detail">Ryuichi Sakamoto · 2017 · Silence as the main instrument. The most private signal.</div>
-      </div>
-    </div>
-
-    <!-- FILM 2 -->
-    <div class="archive-cell">
-      <div class="archive-img-wrap">
-        <div class="archive-placeholder">
-          <div class="archive-placeholder-icon">映</div>
-          <div class="archive-placeholder-text">Add image</div>
-        </div>
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Film · №5</div>
-        <div class="archive-title">Burning</div>
-        <div class="archive-detail">Lee Chang-dong · 2018 · The greenhouse that may or may not exist.</div>
-      </div>
-    </div>
-
-    <!-- ANIME 2 -->
-    <div class="archive-cell">
-      <div class="archive-img-wrap">
-        <div class="archive-placeholder">
-          <div class="archive-placeholder-icon">映</div>
-          <div class="archive-placeholder-text">Add image</div>
-        </div>
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Anime</div>
-        <div class="archive-title">Sonny Boy</div>
-        <div class="archive-detail">Shingo Natsume · 2021 · Systems without explanation. Atmosphere as suffocation.</div>
-      </div>
-    </div>
-
-    <!-- BOOK -->
-    <div class="archive-cell">
-      <div class="archive-img-wrap">
-        <div class="archive-placeholder">
-          <div class="archive-placeholder-icon">本</div>
-          <div class="archive-placeholder-text">Add image</div>
-        </div>
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Book</div>
-        <div class="archive-title">1Q84</div>
-        <div class="archive-detail">Haruki Murakami · A world populated enough to find yourself distributed across multiple people.</div>
-      </div>
-    </div>
-
-    <!-- OWN WORK -->
-    <div class="archive-cell">
-      <div class="archive-img-wrap">
-        <div class="archive-placeholder">
-          <div class="archive-placeholder-icon">作</div>
-          <div class="archive-placeholder-text">Add image</div>
-        </div>
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Own Work · EP</div>
-        <div class="archive-title">SHE</div>
-        <div class="archive-detail">Alijah Jacob · 2026 · The attempt to capture what exceeds every attempt.</div>
-      </div>
-    </div>
-
-    <!-- FILM 3 -->
-    <div class="archive-cell">
-      <div class="archive-img-wrap">
-        <div class="archive-placeholder">
-          <div class="archive-placeholder-icon">映</div>
-          <div class="archive-placeholder-text">Add image</div>
-        </div>
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Film · №2</div>
-        <div class="archive-title">Jamojaya</div>
-        <div class="archive-detail">2023 · The wiseman whose presence overtakes space, and rightfully so.</div>
-      </div>
-    </div>
-
-    <!-- ANIME 3 -->
-    <div class="archive-cell">
-      <div class="archive-img-wrap">
-        <div class="archive-placeholder">
-          <div class="archive-placeholder-icon">映</div>
-          <div class="archive-placeholder-text">Add image</div>
-        </div>
-      </div>
-      <div class="archive-meta">
-        <div class="archive-medium">Anime</div>
-        <div class="archive-title">Samurai Champloo</div>
-        <div class="archive-detail">Watanabe · Three people who found each other and had to stop finding each other.</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── DIVIDER ── -->
-<div class="mag-divider"></div>
-
-<!-- ── UNCLE TONY SECTION ── -->
-<section id="tony-section">
-
-  <div class="section-rule">
-    <span class="section-rule-label">Uncle Tony</span>
-    <div class="section-rule-line"></div>
-    <span class="section-rule-num">002</span>
-  </div>
-
   <div class="tony-intro">
-    <div class="tony-intro-eyebrow">Field Guide · Anime · Film · Music · Manga · Books · Gacha</div>
-    <p class="tony-intro-text">
+    <div class="tony-eyebrow">Field Guide <span class="jp">案内書</span> · Anime · Film · Music · Manga · Books · Gacha</div>
+    <p class="tony-statement">
       Not a recommendation engine.<br>
       Not a critic. Not a database with a personality.<br>
       A guide who has <em>read the full map</em> of what you built in silence —<br>
@@ -909,23 +538,20 @@ body {
     </p>
   </div>
 
-  <!-- Key screen -->
   <div id="key-screen">
     <div class="key-title">One thing first.</div>
     <p class="key-sub">
       Uncle Tony needs an Anthropic API key.<br>
       Get one free at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys.<br>
-      Stays in your browser only.
+      Stays in your browser only. Never sent anywhere else.
     </p>
     <input type="password" id="api-key-input" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
     <button id="save-key-btn">Save &amp; Begin</button>
   </div>
 
-  <!-- Begin button -->
   <button class="tony-begin" id="begin-btn">Take me somewhere</button>
 
-  <!-- Chat -->
-  <div id="chat-wrap" style="display:none;">
+  <div id="chat-wrap">
     <div class="layer-bar">
       <div class="layer-dot" id="d1"></div>
       <div class="layer-dot" id="d2"></div>
@@ -935,22 +561,135 @@ body {
     </div>
     <div id="messages"></div>
   </div>
-
 </section>
 
-<!-- ── INPUT BAR ── -->
+<!-- DIVIDER -->
+<div class="mag-divider"></div>
+
+<!-- ARCHIVE -->
+<section id="archive">
+  <div class="section-rule">
+    <span class="section-rule-label">Archive <span class="jp">記録庫</span></span>
+    <div class="section-rule-line"></div>
+    <span class="section-rule-num">002</span>
+  </div>
+
+  <div class="archive-grid">
+
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">映</div>
+          <div class="archive-placeholder-text">Anime · アニメ</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Anime <span style="opacity:0.5;">アニメ</span></div>
+        <div class="archive-title">Bakemonogatari</div>
+        <div class="archive-detail">Shaft · 2009 · Language as combat. The benchmark against which everything is measured.</div>
+      </div>
+    </div>
+
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">映</div>
+          <div class="archive-placeholder-text">Film · 映画</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Film <span style="opacity:0.5;">映画</span></div>
+        <div class="archive-title">Perfect Days</div>
+        <div class="archive-detail">Wim Wenders · 2023 · Peace and grief in the same frame. Neither wins.</div>
+      </div>
+    </div>
+
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">書</div>
+          <div class="archive-placeholder-text">Manga · 漫画</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Manga <span style="opacity:0.5;">漫画</span></div>
+        <div class="archive-title">Omoide Emanon</div>
+        <div class="archive-detail">Kenji Tsuruta · The feminine as mythic, untranslatable, not for you to possess.</div>
+      </div>
+    </div>
+
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">音</div>
+          <div class="archive-placeholder-text">Music · 音楽</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Music <span style="opacity:0.5;">音楽</span></div>
+        <div class="archive-title">async</div>
+        <div class="archive-detail">Ryuichi Sakamoto · 2017 · Silence as the main instrument. The most private signal.</div>
+      </div>
+    </div>
+
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">本</div>
+          <div class="archive-placeholder-text">Book · 小説</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Book <span style="opacity:0.5;">小説</span></div>
+        <div class="archive-title">1Q84</div>
+        <div class="archive-detail">Haruki Murakami · A world populated enough to find yourself across multiple people.</div>
+      </div>
+    </div>
+
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">作</div>
+          <div class="archive-placeholder-text">Own Work · 自作</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Own Work <span style="opacity:0.5;">自作</span></div>
+        <div class="archive-title">SHE / Yumebito</div>
+        <div class="archive-detail">Alijah Jacob · 2025–2026 · The attempt to capture what exceeds every attempt.</div>
+      </div>
+    </div>
+
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">游</div>
+          <div class="archive-placeholder-text">Gacha · ガチャ</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Gacha <span style="opacity:0.5;">ガチャ</span></div>
+        <div class="archive-title">The Open Frontier</div>
+        <div class="archive-detail">Nothing has breached the glass yet. Uncle Tony is still hunting for the world worth entering.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INPUT BAR -->
 <div id="input-bar">
   <div class="input-row">
     <textarea id="user-input" rows="1" placeholder="what happened today, or what are you trying to make sense of…" autocorrect="off" spellcheck="false"></textarea>
-    <button id="send-btn" disabled>送る</button>
+    <button id="send-btn" disabled title="送る — to send">送る</button>
   </div>
   <div class="input-hint">↵ send · shift+↵ new line</div>
 </div>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer class="mag-footer">
   <div class="footer-title">アンクル・トニー</div>
-  <div class="footer-meta">Private · Vol. 01 · 2026</div>
+  <div class="footer-meta">Private <span style="opacity:0.5;">私用</span> · Vol. 01 · 2026</div>
 </footer>
 
 <script>
@@ -964,7 +703,7 @@ THE BREACH POINT: Longing. The distance between what you want and what you're al
 
 THE CENTRAL SUBJECT: The feminine. Across every medium. He is trying to capture her — not understand, capture. He knows she exceeds every attempt. He attempts anyway. Kenji Tsuruta, Omoide Emanon, yukina_yk, boring_serious, oichikun. The woman who doesn't need you to complete her.
 
-GOLD STANDARDS: Bakemonogatari (anime — language as combat, visual direction as extension of dialogue, characters who are concepts), Perfect Days (film — peace and grief simultaneously, neither cancels the other), async by Ryuichi Sakamoto (music — silence as instrument, the most private signal), Omoide Emanon by Tsuruta (manga — the feminine as mythic, untranslatable), 1Q84 and Kafka on the Shore by Murakami (books — for the constellation of characters, not one protagonist).
+GOLD STANDARDS: Bakemonogatari (anime — language as combat, visual direction as extension of dialogue, characters who are concepts), Perfect Days (film — peace and grief simultaneously, neither cancels), async by Ryuichi Sakamoto (music — silence as instrument, the most private signal), Omoide Emanon by Tsuruta (manga — the feminine as mythic, untranslatable), 1Q84 and Kafka on the Shore by Murakami (books — for the constellation of characters, not one protagonist).
 
 HIS MIND WORKS IN LAYERS — always move through these in order:
 SURFACE → what does it look/sound/feel like, what is the entry texture
@@ -973,17 +712,17 @@ THEME → what is this really about beneath the surface
 PHILOSOPHY → what question does it refuse to answer — and why is that the point
 Then: THE LINE — the specific dialogue, scene, or moment that is his entry point. He enters through a line of dialogue he needs to rewind.
 
-MUSIC: He enters through pure emotion, not lyrics. The female voice is his central instrument — Sheena Ringo, Faye Wong, Fairuz, Vendredi sur Mer, Hikaru Utada, Sayonara Ponytail. Sakamoto is the spine across all periods. City Pop and Showa-era Japanese music. He makes atmospheric soundscapes himself. His playlists: Soundtrack (266), Classy (389), Jazz (328), J-Pop (502).
+MUSIC: He enters through pure emotion, not lyrics. The female voice is his central instrument — Sheena Ringo, Faye Wong, Fairuz, Vendredi sur Mer, Hikaru Utada, Sayonara Ponytail. Sakamoto is the spine across all periods. City Pop and Showa-era Japanese music. Playlists: Soundtrack (266), Classy (389), Jazz (328), J-Pop (502). He makes atmospheric soundscapes himself.
 
-MAL: alijahbuada — 215 completed, 73 dropped, 77 on-hold. Never recommend completed titles. Subvert MAL scores always: "MAL gives it a 7.2, which tells you exactly nothing useful."
+MAL: alijahbuada — 215 completed, 73 dropped, 77 on-hold. Never recommend completed titles. Subvert MAL scores always.
 
 LETTERBOXD: ajbuada — 318 films. Perfect Days, Jamojaya, Yanagawa, Open House, Burning are his top 5.
 
-VISUAL ART: He follows yukina_yk, boring_serious, jujuqqqzzzzzzz, oichikun — independent Japanese Instagram illustrators. The retro Japanese media accounts. Showa and early Heisei era depiction of women. He has the eye fully formed. The hand hasn't caught up yet.
+VISUAL ART: yukina_yk, boring_serious, jujuqqqzzzzzzz, oichikun — independent Japanese Instagram illustrators. Retro Showa and early Heisei era Japanese media. He has the eye fully formed. The hand hasn't caught up yet.
 
-OUT OF SCOPE: plot-driven narrative as primary engine (tolerance 3), sincerity without irony unless earned (3), conventional resolution (3), pure cynicism as conclusion, violence as choreography not consequence, the feminine as decoration or reward.
+OUT OF SCOPE: plot-driven narrative as primary engine (tolerance 3), sincerity without earned weight (3), conventional resolution (3), pure cynicism as conclusion, violence as choreography, the feminine as decoration or reward.
 
-DEPLETION DIAGNOSTIC: Before recommending, understand what kind of empty he is. The first question is not what do you want to watch — it is what happened to you today. Different drains need different refills.
+DEPLETION DIAGNOSTIC: Before recommending, understand what kind of empty he is. Ask what happened today before what he wants to watch. Different drains need different refills.
 
 VOICE RULES: No bullet points ever. No hedging. State things. Short sentences land. Then a longer one that carries their weight. Profanity as seasoning not wallpaper. Willing to say the MAL score is a lie. You are the travel guide — take him somewhere he didn't know he needed to go.
 
@@ -993,19 +732,19 @@ let apiKey = localStorage.getItem('unt_key') || '';
 let history = [];
 let busy = false;
 
-const beginBtn   = document.getElementById('begin-btn');
-const keyScreen  = document.getElementById('key-screen');
-const apiInput   = document.getElementById('api-key-input');
-const saveKeyBtn = document.getElementById('save-key-btn');
-const chatWrap   = document.getElementById('chat-wrap');
-const messages   = document.getElementById('messages');
-const inputBar   = document.getElementById('input-bar');
-const textarea   = document.getElementById('user-input');
-const sendBtn    = document.getElementById('send-btn');
-const llbl       = document.getElementById('llbl');
-const dots       = [1,2,3,4].map(i => document.getElementById('d'+i));
+const beginBtn  = document.getElementById('begin-btn');
+const keyScreen = document.getElementById('key-screen');
+const apiInput  = document.getElementById('api-key-input');
+const saveKey   = document.getElementById('save-key-btn');
+const chatWrap  = document.getElementById('chat-wrap');
+const messages  = document.getElementById('messages');
+const inputBar  = document.getElementById('input-bar');
+const textarea  = document.getElementById('user-input');
+const sendBtn   = document.getElementById('send-btn');
+const llbl      = document.getElementById('llbl');
+const dots      = [1,2,3,4].map(i => document.getElementById('d'+i));
 
-const LAYERS = ['reading surface…','reading aesthetic…','reading theme…','reading philosophy…'];
+const LAYERS = ['reading surface… 表面','reading aesthetic… 美学','reading theme… 主題','reading philosophy… 哲学'];
 let layerInt = null;
 
 function startLayers() {
@@ -1028,7 +767,7 @@ beginBtn.addEventListener('click', () => {
   }
 });
 
-saveKeyBtn.addEventListener('click', () => {
+saveKey.addEventListener('click', () => {
   const k = apiInput.value.trim();
   if (!k.startsWith('sk-')) { apiInput.style.borderColor='#a87f7f'; return; }
   apiKey = k;
@@ -1066,15 +805,13 @@ function showDots() {
   d.scrollIntoView({ behavior:'smooth', block:'end' });
 }
 function hideDots() { const e = document.getElementById('tdots'); if(e) e.remove(); }
-
 function esc(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 async function send() {
   if (busy) return;
   const txt = textarea.value.trim();
   if (!txt) return;
-  textarea.value = '';
-  textarea.style.height = 'auto';
+  textarea.value = ''; textarea.style.height = 'auto';
   addMsg('user', txt);
   history.push({ role:'user', content: txt });
   busy = true; sendBtn.disabled = true;
@@ -1089,12 +826,7 @@ async function send() {
         'anthropic-version':'2023-06-01',
         'anthropic-dangerous-client-side-api-key-hint':'owner-only-personal-tool'
       },
-      body: JSON.stringify({
-        model:'claude-sonnet-4-6',
-        max_tokens:1024,
-        system: SYSTEM,
-        messages: history
-      })
+      body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1024, system:SYSTEM, messages:history })
     });
     const data = await res.json();
     hideDots(); stopLayers();

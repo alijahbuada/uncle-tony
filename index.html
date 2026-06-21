@@ -299,25 +299,7 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
 .tony-statement em { color: var(--washi); font-style: normal; }
 
 /* key screen */
-#key-screen { display: none; padding: 0 20px 24px; }
-#key-screen.visible { display: block; }
-.key-title { font-family: 'Noto Serif JP', serif; font-weight: 300; font-size: 16px; color: var(--washi); margin-bottom: 8px; }
-.key-sub { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.08em; color: var(--mid); margin-bottom: 20px; line-height: 2; }
-.key-sub a { color: var(--gold); text-decoration: none; }
-#api-key-input {
-  width: 100%; max-width: 420px;
-  background: #0e0e14; border: 1px solid var(--dim);
-  color: var(--text); font-family: 'Space Mono', monospace; font-size: 10px;
-  padding: 11px 13px; margin-bottom: 12px; border-radius: 0; -webkit-appearance: none; display: block;
-}
-#api-key-input:focus { outline: none; border-color: var(--gold); }
-#api-key-input::placeholder { color: var(--dim); }
-#save-key-btn {
-  background: transparent; border: 1px solid var(--dim); color: var(--mid);
-  font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase;
-  padding: 11px 22px; cursor: pointer; transition: all 0.2s; border-radius: 0; -webkit-appearance: none;
-}
-#save-key-btn:hover { border-color: var(--gold); color: var(--washi); }
+
 
 /* begin button */
 .tony-begin {
@@ -814,16 +796,7 @@ body { font-family: 'Noto Serif JP', serif; min-height: 100vh; overflow-x: hidde
     </p>
   </div>
 
-  <div id="key-screen">
-    <div class="key-title">One thing first.</div>
-    <p class="key-sub">
-      Uncle Tony needs an Anthropic API key.<br>
-      Get one free at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys.<br>
-      Stays in your browser only. Never sent anywhere else.
-    </p>
-    <input type="password" id="api-key-input" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
-    <button id="save-key-btn">Save &amp; Begin</button>
-  </div>
+
 
   <button class="tony-begin" id="begin-btn">Take me somewhere</button>
 
@@ -978,14 +951,14 @@ VOICE RULES: No bullet points ever. No hedging. State things. Short sentences la
 
 THE NORTH STAR: Would Alijah find something here that felt made for him — something he couldn't have found alone, that he now understands himself better for having encountered? If yes: go. If no: start over.`;
 
-let apiKey = localStorage.getItem('unt_key') || '';
+
 let history = [];
 let busy = false;
 
 const beginBtn  = document.getElementById('begin-btn');
-const keyScreen = document.getElementById('key-screen');
-const apiInput  = document.getElementById('api-key-input');
-const saveKey   = document.getElementById('save-key-btn');
+
+
+
 const chatWrap  = document.getElementById('chat-wrap');
 const messages  = document.getElementById('messages');
 const inputBar  = document.getElementById('input-bar');
@@ -1009,26 +982,13 @@ function stopLayers() {
 }
 
 beginBtn.addEventListener('click', () => {
-  if (!apiKey) {
-    beginBtn.style.display = 'none';
-    keyScreen.classList.add('visible');
-  } else {
-    openChat();
-  }
-});
-
-saveKey.addEventListener('click', () => {
-  const k = apiInput.value.trim();
-  if (!k.startsWith('sk-')) { apiInput.style.borderColor='#a87f7f'; return; }
-  apiKey = k;
-  localStorage.setItem('unt_key', k);
-  keyScreen.classList.remove('visible');
   openChat();
 });
 
+
+
 function openChat() {
   beginBtn.style.display = 'none';
-  keyScreen.classList.remove('visible');
   chatWrap.style.display = 'block';
   inputBar.classList.add('visible');
   sendBtn.disabled = false;
@@ -1068,23 +1028,18 @@ async function send() {
   showDots(); startLayers();
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://uncle-tony-proxy.ajbuada.workers.dev', {
       method:'POST',
       headers:{
-        'Content-Type':'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version':'2023-06-01'
+        'Content-Type':'application/json'
       },
       body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1024, system:SYSTEM, messages:history })
     });
     const data = await res.json();
     hideDots(); stopLayers();
     if (data.error) {
-      const msg = data.error.type==='authentication_error'
-        ? 'Key didn\'t work. Revoke it and get a new one at console.anthropic.com.'
-        : 'Something went wrong. Try again.';
-      addMsg('assistant', msg);
-      if (data.error.type==='authentication_error') { localStorage.removeItem('unt_key'); apiKey=''; }
+      const msg = data.error.message || 'Something went wrong. Try again.';
+      addMsg('assistant', 'Error: ' + msg);
     } else {
       const reply = data.content.map(b=>b.text||'').join('');
       addMsg('assistant', reply);

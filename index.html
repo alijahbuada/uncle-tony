@@ -1092,7 +1092,7 @@ async function send() {
     }
   } catch(e) {
     hideDots(); stopLayers();
-    addMsg('assistant','Lost the signal. Check your connection.');
+    addMsg('assistant', 'Error: ' + e.message + ' — ' + e.name);
   }
   busy = false; sendBtn.disabled = false; textarea.focus();
 }

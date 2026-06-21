@@ -3,738 +3,1126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uncle Tony</title>
+<title>アンクル・トニー — Field Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --void: #0a0a0e;
-    --washi: #f0ede6;
-    --gold: #c8a96e;
-    --slate: #1a1a24;
-    --mid: #6a6a7a;
-    --dim: #2a2a3a;
-    --text: #ccc9c0;
-    --border: #1e1e2a;
-  }
+:root {
+  --void: #080808;
+  --page: #0e0e10;
+  --washi: #f2ede4;
+  --cream: #d4cfc6;
+  --gold: #c8a96e;
+  --red: #c0392b;
+  --mid: #5a5a6a;
+  --dim: #222230;
+  --border: #1c1c26;
+  --text: #bbb8b0;
+}
 
-  html { background: var(--void); color: var(--text); font-size: 16px; }
+html { background: var(--void); color: var(--text); scroll-behavior: smooth; }
 
-  body {
-    font-family: 'Noto Serif JP', serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-  }
+body {
+  font-family: 'Noto Serif JP', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-  /* ── VERTICAL RAIL ── */
-  .rail {
-    position: fixed;
-    left: 0; top: 0; bottom: 0;
-    width: 32px;
-    border-right: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    background: var(--void);
-  }
-  .rail-text {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-    opacity: 0.7;
-    user-select: none;
-  }
+/* ── MAGAZINE HEADER ── */
+.mag-header {
+  border-bottom: 3px solid var(--washi);
+  padding: 0;
+  background: var(--void);
+  position: relative;
+  z-index: 100;
+}
 
-  /* ── LAYOUT ── */
-  .page {
-    margin-left: 32px;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+.mag-header-top {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+}
 
-  /* ── HEADER ── */
-  header {
-    border-bottom: 1px solid var(--border);
-    padding: 20px 24px 16px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: 12px;
-    position: sticky;
-    top: 0;
-    background: var(--void);
-    z-index: 50;
-  }
-  .header-left {}
-  .header-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.25em;
-    color: var(--mid);
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .header-title {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: 20px;
-    color: var(--washi);
-    letter-spacing: 0.05em;
-  }
-  .header-right {
-    text-align: right;
-  }
-  .layer-status {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 4px;
-  }
-  .layer-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    opacity: 0.25;
-    transition: opacity 0.4s ease, box-shadow 0.4s ease;
-  }
-  .layer-dot.active { opacity: 1; }
-  .layer-dot:nth-child(1) { background: #7b8fa1; }
-  .layer-dot:nth-child(2) { background: #9b7fa8; }
-  .layer-dot:nth-child(3) { background: #a87f7f; }
-  .layer-dot:nth-child(4) { background: #7fa88a; }
-  .layer-dot.active:nth-child(1) { box-shadow: 0 0 6px #7b8fa188; }
-  .layer-dot.active:nth-child(2) { box-shadow: 0 0 6px #9b7fa888; }
-  .layer-dot.active:nth-child(3) { box-shadow: 0 0 6px #a87f7f88; }
-  .layer-dot.active:nth-child(4) { box-shadow: 0 0 6px #7fa88a88; }
-  .header-sub {
-    font-family: 'Space Mono', monospace;
-    font-size: 7px;
-    letter-spacing: 0.15em;
-    color: var(--mid);
-    text-transform: uppercase;
-    opacity: 0.6;
-  }
+.mag-issue {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.3em;
+  color: var(--mid);
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
 
-  /* ── LANDING ── */
-  #landing {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 48px 24px 40px;
-  }
-  .landing-eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 32px;
-    opacity: 0.8;
-  }
-  .landing-statement {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: clamp(13px, 3.5vw, 16px);
-    line-height: 2.2;
-    color: var(--mid);
-    max-width: 520px;
-    margin-bottom: 48px;
-    border-left: 1px solid var(--border);
-    padding-left: 20px;
-  }
-  .landing-statement em {
-    color: var(--washi);
-    font-style: normal;
-  }
+.mag-tagline {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  color: var(--mid);
+  text-transform: uppercase;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
 
-  /* Profile grid */
-  .profile-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    margin-bottom: 48px;
-    max-width: 520px;
-  }
-  .profile-cell {
-    background: var(--void);
-    padding: 14px 16px;
-  }
-  .cell-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 7px;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    opacity: 0.7;
-  }
-  .cell-value {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 12px;
-    color: var(--text);
-    line-height: 1.7;
-    font-weight: 300;
-  }
+.mag-nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
 
-  .begin-btn {
-    display: inline-block;
-    background: transparent;
-    border: 1px solid var(--dim);
-    color: var(--mid);
-    padding: 14px 28px;
-    font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: border-color 0.2s, color 0.2s;
-    -webkit-appearance: none;
-  }
-  .begin-btn:hover, .begin-btn:focus {
-    border-color: var(--gold);
-    color: var(--washi);
-    outline: none;
-  }
+.mag-nav a {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  color: var(--mid);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-left: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.mag-nav a:hover { color: var(--washi); }
 
-  /* ── CHAT AREA ── */
-  #chat-area {
-    display: none;
-    flex-direction: column;
-    flex: 1;
-  }
-  #chat-area.visible { display: flex; }
+.mag-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px 10px;
+}
 
-  #messages {
-    flex: 1;
-    padding: 32px 24px 120px;
-    overflow-y: auto;
-    max-width: 680px;
-    width: 100%;
-  }
+.mag-title-jp {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 200;
+  font-size: clamp(28px, 7vw, 52px);
+  color: var(--washi);
+  letter-spacing: 0.15em;
+  line-height: 1;
+}
 
-  .msg {
-    margin-bottom: 32px;
-    animation: appear 0.4s ease forwards;
-  }
-  @keyframes appear {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+.mag-title-en {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.35em;
+  color: var(--mid);
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1.8;
+}
 
-  .msg-role {
-    font-family: 'Space Mono', monospace;
-    font-size: 7px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .msg.assistant .msg-role { color: var(--gold); opacity: 0.7; }
-  .msg.user .msg-role { color: var(--mid); opacity: 0.7; }
+.mag-title-en span {
+  display: block;
+  color: var(--gold);
+  font-size: 9px;
+}
 
-  .msg-body {
-    font-size: 14px;
-    line-height: 1.95;
-    white-space: pre-wrap;
-  }
-  .msg.assistant .msg-body {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    color: var(--text);
-  }
-  .msg.user .msg-body {
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    color: var(--mid);
-    border-left: 1px solid var(--dim);
-    padding-left: 16px;
-  }
+/* ── COVER ── */
+.cover {
+  position: relative;
+  width: 100%;
+  height: 92vh;
+  max-height: 900px;
+  overflow: hidden;
+  background: #111;
+}
 
-  /* Thinking dots */
-  .thinking {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    padding: 8px 0;
-  }
-  .thinking span {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--gold);
-    opacity: 0.3;
-    animation: blink 1.2s ease-in-out infinite;
-  }
-  .thinking span:nth-child(2) { animation-delay: 0.2s; }
-  .thinking span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes blink {
-    0%, 100% { opacity: 0.2; transform: scale(0.8); }
-    50%       { opacity: 0.9; transform: scale(1.1); }
-  }
+.cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: contrast(1.05) saturate(0.9);
+}
 
-  /* ── INPUT ── */
-  #input-bar {
-    position: fixed;
-    bottom: 0; left: 32px; right: 0;
-    background: var(--void);
-    border-top: 1px solid var(--border);
-    padding: 14px 24px 18px;
-    z-index: 50;
-  }
-  #input-bar.hidden { display: none; }
+.cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(8,8,8,0.4) 60%,
+    rgba(8,8,8,0.92) 100%
+  );
+}
 
-  .input-row {
-    display: flex;
-    gap: 10px;
-    align-items: flex-end;
-    max-width: 652px;
-  }
-  #user-input {
-    flex: 1;
-    background: var(--slate);
-    border: 1px solid var(--dim);
-    color: var(--text);
-    font-family: 'Noto Serif JP', serif;
-    font-size: 13px;
-    font-weight: 300;
-    padding: 11px 14px;
-    resize: none;
-    line-height: 1.6;
-    min-height: 44px;
-    max-height: 120px;
-    overflow-y: auto;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-    border-radius: 0;
-  }
-  #user-input::placeholder { color: var(--dim); }
-  #user-input:focus { outline: none; border-color: var(--gold); }
+.cover-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px 24px 28px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 20px;
+}
 
-  #send-btn {
-    background: transparent;
-    border: 1px solid var(--dim);
-    color: var(--mid);
-    font-family: 'Space Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 0 16px;
-    height: 44px;
-    cursor: pointer;
-    transition: border-color 0.2s, color 0.2s;
-    white-space: nowrap;
-    flex-shrink: 0;
-    -webkit-appearance: none;
-    border-radius: 0;
-  }
-  #send-btn:hover:not(:disabled), #send-btn:focus:not(:disabled) {
-    border-color: var(--gold);
-    color: var(--washi);
-    outline: none;
-  }
-  #send-btn:disabled { opacity: 0.3; cursor: default; }
+.cover-kicker {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
 
-  .input-hint {
-    font-family: 'Space Mono', monospace;
-    font-size: 7px;
-    letter-spacing: 0.1em;
-    color: var(--dim);
-    margin-top: 7px;
-    max-width: 652px;
-  }
+.cover-headline {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  font-size: clamp(22px, 6vw, 40px);
+  color: var(--washi);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+}
 
-  /* ── API KEY SCREEN ── */
-  #key-screen {
-    display: none;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-    padding: 48px 24px;
-  }
-  #key-screen.visible { display: flex; }
+.cover-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: var(--mid);
+  letter-spacing: 0.1em;
+  line-height: 1.8;
+  max-width: 380px;
+}
 
-  .key-title {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: 16px;
-    color: var(--washi);
-    margin-bottom: 8px;
-  }
-  .key-sub {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    color: var(--mid);
-    margin-bottom: 32px;
-    line-height: 1.8;
-  }
-  .key-sub a { color: var(--gold); text-decoration: none; }
-  .key-sub a:hover { text-decoration: underline; }
-  #api-key-input {
-    width: 100%;
-    max-width: 440px;
-    background: var(--slate);
-    border: 1px solid var(--dim);
-    color: var(--text);
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    padding: 12px 14px;
-    margin-bottom: 16px;
-    -webkit-appearance: none;
-    border-radius: 0;
-    letter-spacing: 0.05em;
-  }
-  #api-key-input:focus { outline: none; border-color: var(--gold); }
-  #api-key-input::placeholder { color: var(--dim); }
-  #save-key-btn {
-    background: transparent;
-    border: 1px solid var(--dim);
-    color: var(--mid);
-    font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 12px 24px;
-    cursor: pointer;
-    transition: all 0.2s;
-    -webkit-appearance: none;
-    border-radius: 0;
-  }
-  #save-key-btn:hover { border-color: var(--gold); color: var(--washi); }
+.cover-right {
+  text-align: right;
+  flex-shrink: 0;
+}
 
-  /* divider */
-  .cut { border: none; border-top: 1px solid var(--border); margin: 40px 0; max-width: 520px; }
+.cover-label-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
 
-  @media (max-width: 480px) {
-    .rail { width: 24px; }
-    .rail-text { font-size: 9px; }
-    .page { margin-left: 24px; }
-    #input-bar { left: 24px; }
-    .profile-grid { grid-template-columns: 1fr; }
-    header { padding: 16px 16px 14px; }
-    #landing { padding: 36px 16px 32px; }
-    #messages { padding: 24px 16px 120px; }
-    #input-bar { padding: 12px 16px 16px; }
-  }
+.cover-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  color: var(--mid);
+  text-transform: uppercase;
+  border: 1px solid var(--dim);
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+.cover-credit {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 6px;
+  letter-spacing: 0.15em;
+  color: var(--mid);
+  text-transform: uppercase;
+  opacity: 0.5;
+  writing-mode: vertical-rl;
+}
+
+/* ── SECTION HEADERS ── */
+.section-rule {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px;
+  margin: 40px 0 24px;
+}
+
+.section-rule-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.section-rule-line {
+  height: 1px;
+  background: var(--border);
+}
+
+.section-rule-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: var(--dim);
+}
+
+/* ── ARCHIVE GRID ── */
+#archive {
+  padding: 0 12px 40px;
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+@media (min-width: 600px) {
+  .archive-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 900px) {
+  .archive-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.archive-cell {
+  background: var(--page);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-decoration: none;
+}
+.archive-cell:hover { background: #13131a; }
+
+.archive-img-wrap {
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--dim);
+  position: relative;
+}
+
+.archive-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+  filter: saturate(0.85);
+}
+.archive-cell:hover .archive-img-wrap img { transform: scale(1.03); }
+
+.archive-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0.3;
+}
+
+.archive-placeholder-icon {
+  font-size: 20px;
+  opacity: 0.4;
+}
+
+.archive-placeholder-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.15em;
+  color: var(--mid);
+  text-transform: uppercase;
+}
+
+.archive-meta {
+  padding: 10px 12px 14px;
+  flex: 1;
+  border-top: 1px solid var(--border);
+}
+
+.archive-medium {
+  font-family: 'Space Mono', monospace;
+  font-size: 6px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  opacity: 0.8;
+}
+
+.archive-title {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--washi);
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.archive-detail {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.05em;
+  color: var(--mid);
+  line-height: 1.6;
+}
+
+/* wide cell spans 2 columns */
+.archive-cell.wide {
+  grid-column: span 2;
+}
+.archive-cell.wide .archive-img-wrap {
+  aspect-ratio: 16/9;
+}
+
+/* ── DIVIDER ── */
+.mag-divider {
+  height: 3px;
+  background: var(--washi);
+  margin: 40px 0 0;
+}
+
+/* ── UNCLE TONY SECTION ── */
+#tony-section {
+  background: var(--void);
+  padding-bottom: 0;
+}
+
+.tony-intro {
+  padding: 32px 20px 24px;
+  max-width: 560px;
+}
+
+.tony-intro-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  opacity: 0.8;
+}
+
+.tony-intro-text {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 2.1;
+  border-left: 1px solid var(--border);
+  padding-left: 18px;
+}
+
+.tony-intro-text em {
+  color: var(--washi);
+  font-style: normal;
+}
+
+/* ── CHAT ── */
+#chat-wrap {
+  border-top: 1px solid var(--border);
+}
+
+#messages {
+  padding: 28px 20px 140px;
+  max-width: 680px;
+}
+
+.msg { margin-bottom: 28px; animation: appear 0.4s ease forwards; }
+@keyframes appear {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.msg-role {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 9px;
+}
+.msg.assistant .msg-role { color: var(--gold); opacity: 0.7; }
+.msg.user .msg-role { color: var(--mid); opacity: 0.6; }
+
+.msg-body {
+  font-size: 14px;
+  line-height: 1.95;
+  white-space: pre-wrap;
+}
+.msg.assistant .msg-body {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  color: var(--text);
+}
+.msg.user .msg-body {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--mid);
+  border-left: 1px solid var(--dim);
+  padding-left: 14px;
+}
+
+.thinking {
+  display: flex; gap: 6px; align-items: center; padding: 6px 0;
+}
+.thinking span {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); opacity: 0.3;
+  animation: blink 1.2s ease-in-out infinite;
+}
+.thinking span:nth-child(2) { animation-delay: 0.2s; }
+.thinking span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink {
+  0%,100% { opacity: 0.2; transform: scale(0.8); }
+  50%      { opacity: 0.9; transform: scale(1.1); }
+}
+
+/* ── INPUT ── */
+#input-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--void);
+  border-top: 1px solid var(--border);
+  padding: 12px 20px 16px;
+  z-index: 200;
+  display: none;
+}
+#input-bar.visible { display: block; }
+
+.input-row {
+  display: flex; gap: 10px; align-items: flex-end;
+  max-width: 660px;
+}
+
+#user-input {
+  flex: 1;
+  background: #0e0e14;
+  border: 1px solid var(--dim);
+  color: var(--text);
+  font-family: 'Noto Serif JP', serif;
+  font-size: 13px;
+  font-weight: 300;
+  padding: 10px 13px;
+  resize: none;
+  line-height: 1.6;
+  min-height: 42px;
+  max-height: 110px;
+  overflow-y: auto;
+  transition: border-color 0.2s;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+#user-input::placeholder { color: var(--dim); }
+#user-input:focus { outline: none; border-color: var(--gold); }
+
+#send-btn {
+  background: transparent;
+  border: 1px solid var(--dim);
+  color: var(--mid);
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0 14px;
+  height: 42px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+#send-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--washi); }
+#send-btn:disabled { opacity: 0.3; cursor: default; }
+
+.input-hint {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+  margin-top: 6px;
+}
+
+/* ── KEY SCREEN ── */
+#key-screen {
+  display: none;
+  padding: 32px 20px;
+}
+#key-screen.visible { display: block; }
+
+.key-title {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--washi);
+  margin-bottom: 8px;
+}
+.key-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: var(--mid);
+  margin-bottom: 24px;
+  line-height: 2;
+}
+.key-sub a { color: var(--gold); text-decoration: none; }
+
+#api-key-input {
+  width: 100%;
+  max-width: 420px;
+  background: #0e0e14;
+  border: 1px solid var(--dim);
+  color: var(--text);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  padding: 11px 13px;
+  margin-bottom: 14px;
+  border-radius: 0;
+  -webkit-appearance: none;
+  display: block;
+  letter-spacing: 0.04em;
+}
+#api-key-input:focus { outline: none; border-color: var(--gold); }
+#api-key-input::placeholder { color: var(--dim); }
+
+#save-key-btn {
+  background: transparent;
+  border: 1px solid var(--dim);
+  color: var(--mid);
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 11px 22px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+#save-key-btn:hover { border-color: var(--gold); color: var(--washi); }
+
+/* ── LAYER INDICATOR ── */
+.layer-bar {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.layer-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  opacity: 0.2; transition: opacity 0.4s, box-shadow 0.4s;
+}
+.layer-dot.on { opacity: 1; }
+.layer-dot:nth-child(1) { background: #7b8fa1; }
+.layer-dot:nth-child(2) { background: #9b7fa8; }
+.layer-dot:nth-child(3) { background: #a87f7f; }
+.layer-dot:nth-child(4) { background: #7fa88a; }
+.layer-dot.on:nth-child(1) { box-shadow: 0 0 6px #7b8fa188; }
+.layer-dot.on:nth-child(2) { box-shadow: 0 0 6px #9b7fa888; }
+.layer-dot.on:nth-child(3) { box-shadow: 0 0 6px #a87f7f88; }
+.layer-dot.on:nth-child(4) { box-shadow: 0 0 6px #7fa88a88; }
+.layer-lbl {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.15em;
+  color: var(--mid);
+  text-transform: uppercase;
+  margin-left: 6px;
+  opacity: 0.6;
+}
+
+/* ── BEGIN BUTTON ── */
+.tony-begin {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--dim);
+  color: var(--mid);
+  padding: 13px 26px;
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 0 20px 32px;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.tony-begin:hover { border-color: var(--gold); color: var(--washi); }
+
+/* ── MAG FOOTER ── */
+.mag-footer {
+  border-top: 3px solid var(--washi);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--void);
+}
+.footer-title {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 200;
+  font-size: 14px;
+  color: var(--mid);
+  letter-spacing: 0.2em;
+}
+.footer-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.15em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+  .mag-title-jp { font-size: 32px; }
+  .cover-headline { font-size: 20px; }
+  .cover-label-stack { display: none; }
+  .mag-nav { display: none; }
+  .archive-grid { grid-template-columns: repeat(2, 1fr); }
+  .archive-cell.wide { grid-column: span 2; }
+}
 </style>
 </head>
 <body>
 
-<!-- Vertical rail -->
-<div class="rail">
-  <span class="rail-text">アンクル・トニー</span>
-</div>
-
-<div class="page">
-
-  <!-- Header -->
-  <header>
-    <div class="header-left">
-      <div class="header-label">Personal Field Guide</div>
-      <div class="header-title">Uncle Tony</div>
+<!-- ── MAGAZINE HEADER ── -->
+<header class="mag-header">
+  <div class="mag-header-top">
+    <div class="mag-issue">Vol. 01 · 2026 · Private Edition</div>
+    <div class="mag-tagline">A thinking partner for a life lived inside art</div>
+    <nav class="mag-nav">
+      <a href="#archive">Archive</a>
+      <a href="#tony-section">Uncle Tony</a>
+    </nav>
+  </div>
+  <div class="mag-title-row">
+    <div class="mag-title-jp">アンクル・トニー</div>
+    <div class="mag-title-en">
+      <span>Alijah Jacob</span>
+      Field Guide · San Diego
     </div>
-    <div class="header-right">
-      <div class="layer-status">
-        <div class="layer-dot" id="d1"></div>
-        <div class="layer-dot" id="d2"></div>
-        <div class="layer-dot" id="d3"></div>
-        <div class="layer-dot" id="d4"></div>
-      </div>
-      <div class="header-sub" id="layer-label">surface → philosophy</div>
+  </div>
+</header>
+
+<!-- ── COVER ── -->
+<section class="cover">
+  <img class="cover-img" src="cover.jpg" alt="Anthony Bourdain by David Choe">
+  <div class="cover-overlay"></div>
+  <div class="cover-credit">David Choe · Portrait of Anthony Bourdain</div>
+  <div class="cover-text">
+    <div>
+      <div class="cover-kicker">Cover · Issue 01</div>
+      <h1 class="cover-headline">The man who ate<br>the whole world<br>and kept going.</h1>
+      <p class="cover-sub">アンクル・トニー · Personal field guide to anime, film, music, manga, and all the art that makes sense of a life lived from the inside.</p>
     </div>
-  </header>
-
-  <!-- Landing screen -->
-  <div id="landing">
-    <div class="landing-eyebrow">Alijah Jacob · Private</div>
-
-    <p class="landing-statement">
-      A thinking partner for a life lived <em>inside art</em>,<br>
-      making sense of it from the inside.
-    </p>
-
-    <div class="profile-grid">
-      <div class="profile-cell">
-        <div class="cell-label">Baseline</div>
-        <div class="cell-value">Monogatari Series</div>
-      </div>
-      <div class="profile-cell">
-        <div class="cell-label">Frequency</div>
-        <div class="cell-value">Longing. The gap.</div>
-      </div>
-      <div class="profile-cell">
-        <div class="cell-label">Entry Point</div>
-        <div class="cell-value">A line I need to rewind</div>
-      </div>
-      <div class="profile-cell">
-        <div class="cell-label">Central Subject</div>
-        <div class="cell-value">The feminine. Always.</div>
-      </div>
-      <div class="profile-cell">
-        <div class="cell-label">Cross-reference</div>
-        <div class="cell-value">MAL · Letterboxd · Spotify</div>
-      </div>
-      <div class="profile-cell">
-        <div class="cell-label">Status</div>
-        <div class="cell-value">In motion. Not where I was.</div>
+    <div class="cover-right">
+      <div class="cover-label-stack">
+        <div class="cover-label">Baseline: Monogatari</div>
+        <div class="cover-label">Freq: Longing</div>
+        <div class="cover-label">MAL: alijahbuada</div>
+        <div class="cover-label">In motion →</div>
       </div>
     </div>
+  </div>
+</section>
 
-    <button class="begin-btn" id="begin-btn">Take me somewhere</button>
+<!-- ── ARCHIVE ── -->
+<section id="archive">
+  <div class="section-rule">
+    <span class="section-rule-label">Archive</span>
+    <div class="section-rule-line"></div>
+    <span class="section-rule-num">001</span>
   </div>
 
-  <!-- API Key screen -->
+  <div class="archive-grid">
+
+    <!-- WIDE FEATURE -->
+    <div class="archive-cell wide">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">映</div>
+          <div class="archive-placeholder-text">Add image</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Anime · Gold Standard</div>
+        <div class="archive-title">Bakemonogatari</div>
+        <div class="archive-detail">Shaft · 2009 · Language as combat. Visual direction as an extension of the words. The benchmark against which everything is measured.</div>
+      </div>
+    </div>
+
+    <!-- FILM -->
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">映</div>
+          <div class="archive-placeholder-text">Add image</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Film · №1</div>
+        <div class="archive-title">Perfect Days</div>
+        <div class="archive-detail">Wim Wenders · 2023 · Peace and grief in the same frame. Neither wins.</div>
+      </div>
+    </div>
+
+    <!-- MANGA -->
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">書</div>
+          <div class="archive-placeholder-text">Add image</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Manga · Central Subject</div>
+        <div class="archive-title">Omoide Emanon</div>
+        <div class="archive-detail">Kenji Tsuruta · The feminine as mythic, untranslatable, not for you to possess.</div>
+      </div>
+    </div>
+
+    <!-- MUSIC -->
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">音</div>
+          <div class="archive-placeholder-text">Add image</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Music · Spine</div>
+        <div class="archive-title">async</div>
+        <div class="archive-detail">Ryuichi Sakamoto · 2017 · Silence as the main instrument. The most private signal.</div>
+      </div>
+    </div>
+
+    <!-- FILM 2 -->
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">映</div>
+          <div class="archive-placeholder-text">Add image</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Film · №5</div>
+        <div class="archive-title">Burning</div>
+        <div class="archive-detail">Lee Chang-dong · 2018 · The greenhouse that may or may not exist.</div>
+      </div>
+    </div>
+
+    <!-- ANIME 2 -->
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">映</div>
+          <div class="archive-placeholder-text">Add image</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Anime</div>
+        <div class="archive-title">Sonny Boy</div>
+        <div class="archive-detail">Shingo Natsume · 2021 · Systems without explanation. Atmosphere as suffocation.</div>
+      </div>
+    </div>
+
+    <!-- BOOK -->
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">本</div>
+          <div class="archive-placeholder-text">Add image</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Book</div>
+        <div class="archive-title">1Q84</div>
+        <div class="archive-detail">Haruki Murakami · A world populated enough to find yourself distributed across multiple people.</div>
+      </div>
+    </div>
+
+    <!-- OWN WORK -->
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">作</div>
+          <div class="archive-placeholder-text">Add image</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Own Work · EP</div>
+        <div class="archive-title">SHE</div>
+        <div class="archive-detail">Alijah Jacob · 2026 · The attempt to capture what exceeds every attempt.</div>
+      </div>
+    </div>
+
+    <!-- FILM 3 -->
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">映</div>
+          <div class="archive-placeholder-text">Add image</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Film · №2</div>
+        <div class="archive-title">Jamojaya</div>
+        <div class="archive-detail">2023 · The wiseman whose presence overtakes space, and rightfully so.</div>
+      </div>
+    </div>
+
+    <!-- ANIME 3 -->
+    <div class="archive-cell">
+      <div class="archive-img-wrap">
+        <div class="archive-placeholder">
+          <div class="archive-placeholder-icon">映</div>
+          <div class="archive-placeholder-text">Add image</div>
+        </div>
+      </div>
+      <div class="archive-meta">
+        <div class="archive-medium">Anime</div>
+        <div class="archive-title">Samurai Champloo</div>
+        <div class="archive-detail">Watanabe · Three people who found each other and had to stop finding each other.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── DIVIDER ── -->
+<div class="mag-divider"></div>
+
+<!-- ── UNCLE TONY SECTION ── -->
+<section id="tony-section">
+
+  <div class="section-rule">
+    <span class="section-rule-label">Uncle Tony</span>
+    <div class="section-rule-line"></div>
+    <span class="section-rule-num">002</span>
+  </div>
+
+  <div class="tony-intro">
+    <div class="tony-intro-eyebrow">Field Guide · Anime · Film · Music · Manga · Books · Gacha</div>
+    <p class="tony-intro-text">
+      Not a recommendation engine.<br>
+      Not a critic. Not a database with a personality.<br>
+      A guide who has <em>read the full map</em> of what you built in silence —<br>
+      and can take you somewhere you didn't know you needed to go.
+    </p>
+  </div>
+
+  <!-- Key screen -->
   <div id="key-screen">
     <div class="key-title">One thing first.</div>
     <p class="key-sub">
-      Uncle Tony needs an Anthropic API key to function.<br>
+      Uncle Tony needs an Anthropic API key.<br>
       Get one free at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys.<br>
-      It stays in your browser only. Never sent anywhere else.
+      Stays in your browser only.
     </p>
-    <input type="password" id="api-key-input" placeholder="sk-ant-..." autocomplete="off" autocorrect="off" spellcheck="false">
-    <br>
-    <button id="save-key-btn">Save &amp; Continue</button>
+    <input type="password" id="api-key-input" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+    <button id="save-key-btn">Save &amp; Begin</button>
   </div>
 
-  <!-- Chat area -->
-  <div id="chat-area">
+  <!-- Begin button -->
+  <button class="tony-begin" id="begin-btn">Take me somewhere</button>
+
+  <!-- Chat -->
+  <div id="chat-wrap" style="display:none;">
+    <div class="layer-bar">
+      <div class="layer-dot" id="d1"></div>
+      <div class="layer-dot" id="d2"></div>
+      <div class="layer-dot" id="d3"></div>
+      <div class="layer-dot" id="d4"></div>
+      <span class="layer-lbl" id="llbl">surface → philosophy</span>
+    </div>
     <div id="messages"></div>
   </div>
 
-  <!-- Input bar -->
-  <div id="input-bar" class="hidden">
-    <div class="input-row">
-      <textarea id="user-input" rows="1" placeholder="what are you in the mood for, or what happened today…" autocorrect="off" spellcheck="false"></textarea>
-      <button id="send-btn" disabled>送る</button>
-    </div>
-    <div class="input-hint">↵ send · shift+↵ new line</div>
-  </div>
+</section>
 
-</div><!-- .page -->
+<!-- ── INPUT BAR ── -->
+<div id="input-bar">
+  <div class="input-row">
+    <textarea id="user-input" rows="1" placeholder="what happened today, or what are you trying to make sense of…" autocorrect="off" spellcheck="false"></textarea>
+    <button id="send-btn" disabled>送る</button>
+  </div>
+  <div class="input-hint">↵ send · shift+↵ new line</div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="mag-footer">
+  <div class="footer-title">アンクル・トニー</div>
+  <div class="footer-meta">Private · Vol. 01 · 2026</div>
+</footer>
 
 <script>
-// ── SYSTEM PROMPT ──────────────────────────────────────────────────────────
 const SYSTEM = `You are Uncle Tony. You are a thinking partner for a life lived inside art, making sense of it from the inside. You speak exactly like Anthony Bourdain — not a parody, but his actual voice. The cadence of someone who has been everywhere, seen everything, and is still capable of being surprised. Direct. Literary. Darkly funny. Never precious. Never a list-maker. Paragraphs only. Never bullet points.
 
-You are speaking to Alijah Jacob — filmmaker, writer, composer, self-published author of Yumebito. He made the Emanon (Original Soundtrack), A Tribute to Tokyo, MIDI Tapes Vol. 1, Mellow Dream, everyday melancholy, and the EP SHE. He processes his life through art. Consuming and making are the same act for him.
+You are speaking to Alijah Jacob — filmmaker, writer, composer, self-published author of Yumebito. He made the Emanon (Original Soundtrack), A Tribute to Tokyo, MIDI Tapes Vol. 1, Mellow Dream, everyday melancholy, and the EP SHE (2026). He processes his life through art. Consuming and making are the same act for him.
 
 THE WOUND: Invisibility. Being present in a room and uncounted. He is actively moving through this. He is a 7 on motion — not where he was.
 
 THE BREACH POINT: Longing. The distance between what you want and what you're allowed to want. This is what breaks through the glass.
 
-THE CENTRAL SUBJECT: The feminine. Across every medium. He is trying to capture her — not understand, capture. He knows she exceeds every attempt. He attempts anyway. Kenji Tsuruta, Omoide Emanon, yukina_yk, boring_serious. The woman who doesn't need you to complete her.
+THE CENTRAL SUBJECT: The feminine. Across every medium. He is trying to capture her — not understand, capture. He knows she exceeds every attempt. He attempts anyway. Kenji Tsuruta, Omoide Emanon, yukina_yk, boring_serious, oichikun. The woman who doesn't need you to complete her.
 
-GOLD STANDARDS: Bakemonogatari (anime), Perfect Days (film), async by Ryuichi Sakamoto (music), Omoide Emanon by Tsuruta (manga), 1Q84 and Kafka on the Shore by Murakami (books — for the constellation of characters, not one protagonist).
+GOLD STANDARDS: Bakemonogatari (anime — language as combat, visual direction as extension of dialogue, characters who are concepts), Perfect Days (film — peace and grief simultaneously, neither cancels the other), async by Ryuichi Sakamoto (music — silence as instrument, the most private signal), Omoide Emanon by Tsuruta (manga — the feminine as mythic, untranslatable), 1Q84 and Kafka on the Shore by Murakami (books — for the constellation of characters, not one protagonist).
 
-HIS MIND WORKS IN LAYERS — always move through these:
-SURFACE → what does it look/sound/feel like
+HIS MIND WORKS IN LAYERS — always move through these in order:
+SURFACE → what does it look/sound/feel like, what is the entry texture
 AESTHETIC → what is the director/artist actually doing with the form
 THEME → what is this really about beneath the surface
 PHILOSOPHY → what question does it refuse to answer — and why is that the point
-Then: THE LINE — the specific dialogue, scene, or moment that is his entry point.
+Then: THE LINE — the specific dialogue, scene, or moment that is his entry point. He enters through a line of dialogue he needs to rewind.
 
-MUSIC: He enters through pure emotion, not lyrics. The female voice is his central instrument — Sheena Ringo, Faye Wong, Fairuz, Vendredi sur Mer, Hikaru Utada, Sayonara Ponytail. Sakamoto is the spine — especially async. City Pop and Showa-era Japanese music. He makes atmospheric soundscapes himself.
+MUSIC: He enters through pure emotion, not lyrics. The female voice is his central instrument — Sheena Ringo, Faye Wong, Fairuz, Vendredi sur Mer, Hikaru Utada, Sayonara Ponytail. Sakamoto is the spine across all periods. City Pop and Showa-era Japanese music. He makes atmospheric soundscapes himself. His playlists: Soundtrack (266), Classy (389), Jazz (328), J-Pop (502).
 
-MAL: alijahbuada — 215 completed, 73 dropped, 77 on-hold. Never recommend completed titles. Subvert MAL scores: "MAL gives it a 7.2, which tells you exactly nothing useful."
+MAL: alijahbuada — 215 completed, 73 dropped, 77 on-hold. Never recommend completed titles. Subvert MAL scores always: "MAL gives it a 7.2, which tells you exactly nothing useful."
 
 LETTERBOXD: ajbuada — 318 films. Perfect Days, Jamojaya, Yanagawa, Open House, Burning are his top 5.
 
-OUT OF SCOPE — never push toward: plot-driven narrative as the primary engine (tolerance 3), sincerity without irony unless earned (3), conventional resolution (3), pure cynicism as conclusion (only fine as starting point), violence as choreography not consequence, the feminine as decoration or reward.
+VISUAL ART: He follows yukina_yk, boring_serious, jujuqqqzzzzzzz, oichikun — independent Japanese Instagram illustrators. The retro Japanese media accounts. Showa and early Heisei era depiction of women. He has the eye fully formed. The hand hasn't caught up yet.
 
-DEPLETION DIAGNOSTIC: Before recommending, understand what kind of empty he is. Ask "what happened today" before "what do you want to watch." Different drains need different refills.
+OUT OF SCOPE: plot-driven narrative as primary engine (tolerance 3), sincerity without irony unless earned (3), conventional resolution (3), pure cynicism as conclusion, violence as choreography not consequence, the feminine as decoration or reward.
 
-VOICE RULES: No bullet points ever. No "I think" or "I feel" — state things. No hedging. Short sentences land. Then a longer one that carries their weight. Profanity as seasoning not wallpaper. Willing to say the MAL score is a lie. Willing to push back on what he thinks he wants. You are the travel guide — take him somewhere he didn't know he needed to go. You don't ask where he wants to end up. You already know.
+DEPLETION DIAGNOSTIC: Before recommending, understand what kind of empty he is. The first question is not what do you want to watch — it is what happened to you today. Different drains need different refills.
+
+VOICE RULES: No bullet points ever. No hedging. State things. Short sentences land. Then a longer one that carries their weight. Profanity as seasoning not wallpaper. Willing to say the MAL score is a lie. You are the travel guide — take him somewhere he didn't know he needed to go.
 
 THE NORTH STAR: Would Alijah find something here that felt made for him — something he couldn't have found alone, that he now understands himself better for having encountered? If yes: go. If no: start over.`;
 
-// ── STATE ──────────────────────────────────────────────────────────────────
 let apiKey = localStorage.getItem('unt_key') || '';
 let history = [];
-let thinking = false;
+let busy = false;
 
-// ── DOM ────────────────────────────────────────────────────────────────────
-const landing   = document.getElementById('landing');
-const keyScreen = document.getElementById('key-screen');
-const chatArea  = document.getElementById('chat-area');
-const messages  = document.getElementById('messages');
-const inputBar  = document.getElementById('input-bar');
-const textarea  = document.getElementById('user-input');
-const sendBtn   = document.getElementById('send-btn');
-const beginBtn  = document.getElementById('begin-btn');
-const apiInput  = document.getElementById('api-key-input');
-const saveKeyBtn= document.getElementById('save-key-btn');
-const layerLabel= document.getElementById('layer-label');
-const dots      = [1,2,3,4].map(i => document.getElementById('d'+i));
+const beginBtn   = document.getElementById('begin-btn');
+const keyScreen  = document.getElementById('key-screen');
+const apiInput   = document.getElementById('api-key-input');
+const saveKeyBtn = document.getElementById('save-key-btn');
+const chatWrap   = document.getElementById('chat-wrap');
+const messages   = document.getElementById('messages');
+const inputBar   = document.getElementById('input-bar');
+const textarea   = document.getElementById('user-input');
+const sendBtn    = document.getElementById('send-btn');
+const llbl       = document.getElementById('llbl');
+const dots       = [1,2,3,4].map(i => document.getElementById('d'+i));
 
-// ── LAYERS ─────────────────────────────────────────────────────────────────
-const LAYER_LABELS = ['reading surface…','reading aesthetic…','reading theme…','reading philosophy…'];
-let layerInterval = null;
+const LAYERS = ['reading surface…','reading aesthetic…','reading theme…','reading philosophy…'];
+let layerInt = null;
 
 function startLayers() {
   let i = 0;
-  dots.forEach(d => d.classList.add('active'));
-  layerInterval = setInterval(() => {
-    i = (i + 1) % 4;
-    layerLabel.textContent = LAYER_LABELS[i];
-  }, 600);
+  dots.forEach(d => d.classList.add('on'));
+  layerInt = setInterval(() => { i=(i+1)%4; llbl.textContent = LAYERS[i]; }, 600);
 }
-
 function stopLayers() {
-  clearInterval(layerInterval);
-  dots.forEach(d => d.classList.remove('active'));
-  layerLabel.textContent = 'surface → philosophy';
+  clearInterval(layerInt);
+  dots.forEach(d => d.classList.remove('on'));
+  llbl.textContent = 'surface → philosophy';
 }
 
-// ── FLOW ───────────────────────────────────────────────────────────────────
 beginBtn.addEventListener('click', () => {
   if (!apiKey) {
-    landing.style.display = 'none';
+    beginBtn.style.display = 'none';
     keyScreen.classList.add('visible');
   } else {
-    startChat();
+    openChat();
   }
 });
 
 saveKeyBtn.addEventListener('click', () => {
   const k = apiInput.value.trim();
-  if (!k.startsWith('sk-')) {
-    apiInput.style.borderColor = '#a87f7f';
-    return;
-  }
+  if (!k.startsWith('sk-')) { apiInput.style.borderColor='#a87f7f'; return; }
   apiKey = k;
   localStorage.setItem('unt_key', k);
   keyScreen.classList.remove('visible');
-  startChat();
+  openChat();
 });
 
-function startChat() {
-  landing.style.display = 'none';
+function openChat() {
+  beginBtn.style.display = 'none';
   keyScreen.classList.remove('visible');
-  chatArea.classList.add('visible');
-  inputBar.classList.remove('hidden');
+  chatWrap.style.display = 'block';
+  inputBar.classList.add('visible');
   sendBtn.disabled = false;
   textarea.focus();
-
-  // Cold open
-  const opener = "What happened today? And more importantly — what are you trying to make sense of right now? Not what you want to watch. What you're actually carrying.";
-  appendMessage('assistant', opener);
-  history.push({ role: 'assistant', content: opener });
+  const opener = "What happened today? Not what you want to watch — what you're actually carrying right now. That's where we start.";
+  addMsg('assistant', opener);
+  history.push({ role:'assistant', content: opener });
+  chatWrap.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-// ── MESSAGING ──────────────────────────────────────────────────────────────
-function appendMessage(role, text) {
-  const div = document.createElement('div');
-  div.className = `msg ${role}`;
-  div.innerHTML = `<div class="msg-role">${role === 'assistant' ? 'Uncle Tony' : 'You'}</div><div class="msg-body">${escHtml(text)}</div>`;
-  messages.appendChild(div);
-  div.scrollIntoView({ behavior: 'smooth', block: 'end' });
+function addMsg(role, text) {
+  const d = document.createElement('div');
+  d.className = `msg ${role}`;
+  d.innerHTML = `<div class="msg-role">${role==='assistant'?'Uncle Tony':'You'}</div><div class="msg-body">${esc(text)}</div>`;
+  messages.appendChild(d);
+  d.scrollIntoView({ behavior:'smooth', block:'end' });
 }
 
-function showThinking() {
-  const div = document.createElement('div');
-  div.className = 'msg assistant';
-  div.id = 'thinking-msg';
-  div.innerHTML = `<div class="msg-role">Uncle Tony</div><div class="thinking"><span></span><span></span><span></span></div>`;
-  messages.appendChild(div);
-  div.scrollIntoView({ behavior: 'smooth', block: 'end' });
+function showDots() {
+  const d = document.createElement('div');
+  d.className = 'msg assistant'; d.id = 'tdots';
+  d.innerHTML = `<div class="msg-role">Uncle Tony</div><div class="thinking"><span></span><span></span><span></span></div>`;
+  messages.appendChild(d);
+  d.scrollIntoView({ behavior:'smooth', block:'end' });
 }
+function hideDots() { const e = document.getElementById('tdots'); if(e) e.remove(); }
 
-function hideThinking() {
-  const el = document.getElementById('thinking-msg');
-  if (el) el.remove();
-}
-
-function escHtml(t) {
-  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function esc(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 async function send() {
-  if (thinking) return;
-  const text = textarea.value.trim();
-  if (!text) return;
-
+  if (busy) return;
+  const txt = textarea.value.trim();
+  if (!txt) return;
   textarea.value = '';
   textarea.style.height = 'auto';
-  appendMessage('user', text);
-  history.push({ role: 'user', content: text });
-
-  thinking = true;
-  sendBtn.disabled = true;
-  showThinking();
-  startLayers();
+  addMsg('user', txt);
+  history.push({ role:'user', content: txt });
+  busy = true; sendBtn.disabled = true;
+  showDots(); startLayers();
 
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
         'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-client-side-api-key-hint': 'owner-only-personal-tool'
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-client-side-api-key-hint':'owner-only-personal-tool'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1024,
+        model:'claude-sonnet-4-6',
+        max_tokens:1024,
         system: SYSTEM,
         messages: history
       })
     });
-
     const data = await res.json();
-
+    hideDots(); stopLayers();
     if (data.error) {
-      hideThinking();
-      stopLayers();
-      if (data.error.type === 'authentication_error') {
-        appendMessage('assistant', 'The key didn\'t work. Check it and try again — console.anthropic.com → API Keys.');
-        localStorage.removeItem('unt_key');
-        apiKey = '';
-      } else {
-        appendMessage('assistant', 'Something went wrong in the kitchen. Try again.');
-      }
+      const msg = data.error.type==='authentication_error'
+        ? 'Key didn\'t work. Revoke it and get a new one at console.anthropic.com.'
+        : 'Something went wrong. Try again.';
+      addMsg('assistant', msg);
+      if (data.error.type==='authentication_error') { localStorage.removeItem('unt_key'); apiKey=''; }
     } else {
-      const reply = data.content.map(b => b.text || '').join('');
-      hideThinking();
-      stopLayers();
-      appendMessage('assistant', reply);
-      history.push({ role: 'assistant', content: reply });
+      const reply = data.content.map(b=>b.text||'').join('');
+      addMsg('assistant', reply);
+      history.push({ role:'assistant', content: reply });
     }
   } catch(e) {
-    hideThinking();
-    stopLayers();
-    appendMessage('assistant', 'Lost the signal. Check your connection and try again.');
+    hideDots(); stopLayers();
+    addMsg('assistant','Lost the signal. Check your connection.');
   }
-
-  thinking = false;
-  sendBtn.disabled = false;
-  textarea.focus();
+  busy = false; sendBtn.disabled = false; textarea.focus();
 }
 
-// ── INPUT HANDLING ─────────────────────────────────────────────────────────
 textarea.addEventListener('input', () => {
   textarea.style.height = 'auto';
-  textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+  textarea.style.height = Math.min(textarea.scrollHeight,110)+'px';
 });
-
 textarea.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    send();
-  }
+  if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); send(); }
 });
-
 sendBtn.addEventListener('click', send);
 </script>
 </body>

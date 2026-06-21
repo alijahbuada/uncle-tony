@@ -1071,11 +1071,9 @@ async function send() {
     const res = await fetch('https://uncle-tony-proxy.ajbuada.workers.dev', {
       method:'POST',
       headers:{
-        'Content-Type':'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version':'2023-06-01'
+        'Content-Type':'application/json'
       },
-      body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1024, system:SYSTEM, messages:history })
+      body: JSON.stringify({ apiKey: apiKey, model:'claude-sonnet-4-6', max_tokens:1024, system:SYSTEM, messages:history })
     });
     const data = await res.json();
     hideDots(); stopLayers();

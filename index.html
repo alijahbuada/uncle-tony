@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Uncle Tony</title>
+<meta name="description" content="uncle tony: a field guide to anime, film, music, manga, and books. a goneadrift supplement by alijah jacob buada.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="uncle tony · a goneadrift supplement">
+<meta property="og:description" content="a field guide to anime, film, music, manga, and books, in anthony bourdain's voice.">
+<meta property="og:url" content="https://alijahbuada.github.io/uncle-tony/">
+<meta property="og:image" content="https://alijahbuada.github.io/uncle-tony/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#191412">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2712%27 fill=%27%23191412%27/%3E%3Ctext x=%2732%27 y=%2746%27 font-size=%2738%27 text-anchor=%27middle%27 fill=%27%23f08a9c%27 font-family=%27serif%27%3E%E6%A1%88%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Nanum+Pen+Script&family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: the goneadrift zine's companion supplement. Same warm desk, cream prints and riso pink; a reading booth in the middle where Tony talks. */
+:root{
+  --desk:#191412; --paper:#241d19; --paper-2:#2e2520; --ink:#ecdfc8; --ink-dim:#a8998a;
+  --riso:#f08a9c; --tape:#d9c8a2; --sky:#8fb3bf; --line:#4a3d35; --cream:#efe6d4; --cream-ink:#2a221d;
+  --f-display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",Georgia,serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Helvetica Neue",Arial,sans-serif;
+  --f-dot:"DotGothic16","Courier New",ui-monospace,monospace;
+  --f-hand:"Nanum Pen Script","Bradley Hand","Segoe Print",cursive;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--desk);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.75;margin:0;
+  padding-inline:16px;padding-block:28px 64px;background-image:radial-gradient(rgba(236,223,200,.035) 1px,transparent 1.2px);background-size:5px 5px}
+a{color:inherit}
+a:focus-visible,button:focus-visible,textarea:focus-visible{outline:2px dashed var(--riso);outline-offset:3px}
+.wrap{max-width:1040px;margin-inline:auto;display:grid;gap:60px}
+.dot{font-family:var(--f-dot);font-size:13px;letter-spacing:.08em;color:var(--ink-dim);text-transform:lowercase}
+.hand{font-family:var(--f-hand)}
+.stamp{display:inline-block;font-family:var(--f-dot);font-size:12px;letter-spacing:.1em;color:var(--riso);border:1.5px solid var(--riso);padding:1px 8px;border-radius:3px;transform:rotate(-2deg)}
+.taped{position:relative}
+.taped::before{content:"";position:absolute;top:-11px;left:50%;width:84px;height:22px;transform:translateX(-50%) rotate(-3deg);background:var(--tape);opacity:.55;z-index:2}
+.btn{display:inline-flex;align-items:center;gap:8px;justify-self:start;text-decoration:none;font-family:var(--f-dot);font-size:14px;color:var(--ink);background:transparent;
+  border:1.5px solid var(--ink);padding:6px 16px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:var(--ink);color:var(--desk)}
+.btn:disabled{opacity:.35;cursor:default;background:transparent;color:var(--ink)}
+
+/* masthead */
+.mast{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end;border-bottom:1px dashed var(--line);padding-bottom:22px}
+.mast h1{margin:0;font-family:var(--f-display);font-weight:800;font-size:clamp(30px,8vw,88px);line-height:1;letter-spacing:.02em;white-space:nowrap}
+.mast h1 .t{color:var(--riso)}
+.mast .en{font-family:var(--f-display);font-size:clamp(18px,2.6vw,24px);color:var(--ink-dim);margin-top:10px}
+.mast .side{display:grid;gap:4px;justify-items:end;text-align:right}
+.mast .side b{font-family:var(--f-display);font-size:22px;line-height:1.2}
+.back{color:var(--riso)!important;text-decoration:none}
+@media (max-width:600px){.mast{grid-template-columns:1fr}.mast .side{justify-items:start;text-align:left}}
+nav.index{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--f-dot);font-size:14px}
+nav.index a{text-decoration:none;color:var(--ink-dim)}
+nav.index a span{color:var(--riso)}
+nav.index a:hover{color:var(--ink)}
+
+/* section heads */
+section{display:grid;gap:24px}
+.sec-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.sec-head h2{margin:0;font-family:var(--f-display);font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1}
+.sec-head .jp{font-family:var(--f-display);color:var(--riso);font-size:20px;letter-spacing:.2em}
+.sec-head .dot{margin-left:auto}
+
+/* cover */
+.cover{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center}
+.cover-print{background:var(--cream);padding:12px 12px 36px;box-shadow:0 16px 34px rgba(0,0,0,.5);transform:rotate(-1.2deg);position:relative}
+.cover-print img{display:block;width:100%;height:auto}
+.cover-print figcaption{position:absolute;left:14px;right:14px;bottom:8px;font-family:var(--f-dot);font-size:11px;color:#6d6055;letter-spacing:.06em}
+.cover-text{display:grid;gap:16px}
+.cover-text .stamp{justify-self:start}
+.cover-text h3{margin:0;font-family:var(--f-display);font-weight:800;font-size:clamp(28px,4.2vw,44px);line-height:1.2;text-wrap:balance}
+.cover-text p{margin:0;max-width:44ch;color:var(--ink-dim)}
+.labels{display:flex;flex-wrap:wrap;gap:8px}
+.labels span{font-family:var(--f-dot);font-size:11px;letter-spacing:.06em;color:var(--tape);border:1px dashed var(--tape);padding:1px 8px;border-radius:2px}
+@media (max-width:760px){.cover{grid-template-columns:1fr}}
+
+/* preface */
+.preface{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:36px;align-items:start}
+.preface-body{border-left:2px solid var(--riso);padding-left:22px;display:grid;gap:14px}
+.preface-body p{margin:0;max-width:60ch;color:var(--ink-dim)}
+.preface-body p:first-child{font-family:var(--f-display);font-size:clamp(20px,2.6vw,25px);line-height:1.55;color:var(--ink)}
+.preface-body p:last-of-type{font-family:var(--f-display);font-size:19px;color:var(--ink)}
+.sig{font-family:var(--f-hand);font-size:30px;color:var(--riso);line-height:1}
+.what{display:grid;gap:18px}
+.what-card{background:var(--paper);padding:18px 20px;display:grid;gap:6px}
+.what-card:nth-child(1){transform:rotate(.6deg)}
+.what-card:nth-child(2){transform:rotate(-.5deg)}
+.what-card h4{margin:0;font-family:var(--f-display);font-size:20px;display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.what-card h4 span{font-size:14px;color:var(--riso);letter-spacing:.15em}
+.what-card p{margin:0;font-size:15px;color:var(--ink-dim)}
+@media (max-width:800px){.preface{grid-template-columns:1fr}}
+
+/* the booth: talking to tony */
+.booth{background:var(--paper);border:1px solid var(--line);display:grid;grid-template-rows:auto 1fr auto;max-width:860px;width:100%;justify-self:center}
+.booth-head{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px dashed var(--line)}
+.layers{display:flex;gap:6px;flex-wrap:wrap}
+.layers span{font-family:var(--f-dot);font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--ink-dim);transition:all .25s}
+.layers span.on{color:var(--desk);border-color:transparent}
+.layers span.on:nth-child(1){background:var(--sky)}
+.layers span.on:nth-child(2){background:#c9a2d6}
+.layers span.on:nth-child(3){background:var(--riso)}
+.layers span.on:nth-child(4){background:var(--tape)}
+.feed{padding:26px 22px;display:grid;gap:22px;align-content:start;min-height:260px;max-height:68vh;overflow-y:auto}
+.intro{display:grid;gap:16px;justify-items:start}
+.intro p{margin:0;font-family:var(--f-display);font-size:clamp(19px,2.4vw,23px);line-height:1.6;max-width:36ch}
+.intro p em{font-style:normal;background:linear-gradient(transparent 62%,rgba(240,138,156,.35) 62%)}
+.msg{display:grid;gap:6px;animation:appear .4s ease both}
+@keyframes appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg.tony{background:var(--cream);color:var(--cream-ink);padding:16px 18px 18px;box-shadow:0 8px 18px rgba(0,0,0,.35);max-width:62ch;justify-self:start;position:relative}
+.msg.tony:nth-child(odd){transform:rotate(-.4deg)}
+.msg.tony:nth-child(even){transform:rotate(.35deg)}
+.msg.tony .who{font-family:var(--f-hand);font-size:24px;color:#b34a5e;line-height:1}
+.msg.tony .body{font-family:var(--f-display);font-size:16px;line-height:1.85;white-space:pre-wrap}
+.msg.you{justify-self:end;max-width:52ch;text-align:right}
+.msg.you .who{font-family:var(--f-dot);font-size:12px;color:var(--riso)}
+.msg.you .body{font-family:var(--f-dot);font-size:14px;color:var(--ink);white-space:pre-wrap;border-right:2px solid var(--riso);padding-right:12px}
+.thinking{display:flex;gap:6px;padding:6px 0}
+.thinking span{width:6px;height:6px;border-radius:50%;background:#b34a5e;opacity:.3;animation:blink 1.2s ease-in-out infinite}
+.thinking span:nth-child(2){animation-delay:.2s}.thinking span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:.9;transform:scale(1.1)}}
+.compose{display:flex;gap:10px;align-items:flex-end;padding:14px 18px 16px;border-top:1px dashed var(--line)}
+.compose[hidden]{display:none!important}
+#user-input{flex:1;min-width:0;background:var(--desk);border:1px solid var(--line);color:var(--ink);font-family:var(--f-body);font-size:15px;padding:10px 12px;resize:none;line-height:1.6;min-height:46px;max-height:140px;border-radius:4px}
+#user-input::placeholder{color:#6d6055}
+#user-input:focus{outline:none;border-color:var(--riso)}
+.hint{padding:0 18px 12px;margin:0}
+
+/* footer */
+footer{border-top:1px dashed var(--line);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
+.links{display:flex;flex-wrap:wrap;gap:8px 18px}
+.links a{text-decoration:none}
+.links a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+
+<main class="wrap">
+  <header class="mast">
+    <div>
+      <h1>アンクル・<span class="t">トニー</span></h1>
+      <div class="en">uncle tony · a field guide</div>
+    </div>
+    <div class="side">
+      <span class="dot">a goneadrift supplement</span>
+      <b>Alijah Jacob</b>
+      <span class="dot">san diego</span>
+      <a class="dot back" href="https://alijahbuada.github.io/">← back to goneadrift</a>
+    </div>
+  </header>
+
+  <nav class="index" aria-label="Sections">
+    <a href="#cover"><span>壱</span> cover</a>
+    <a href="#preface"><span>弐</span> preface</a>
+    <a href="#tony"><span>参</span> talk to tony</a>
+  </nav>
+
+  <section id="cover" class="cover" aria-label="Cover">
+    <figure class="cover-print taped" style="margin:0">
+      <img src="cover.JPG" alt="David Choe's painted portrait of Anthony Bourdain" width="1600" height="1078">
+      <figcaption>cover · david choe, portrait of anthony bourdain</figcaption>
+    </figure>
+    <div class="cover-text">
+      <span class="stamp">cover · 表紙</span>
+      <h3>The man who ate the whole world and kept going.</h3>
+      <p>アンクル・トニー is a personal field guide to anime, film, music, manga, books, and all the art that makes sense of a life lived from the inside.</p>
+      <div class="labels"><span>baseline · monogatari</span><span>frequency · longing</span><span>in motion →</span></div>
+    </div>
+  </section>
+
+  <section id="preface">
+    <div class="sec-head"><h2>preface</h2><span class="jp">序文</span><span class="dot">alijah jacob · 2026</span></div>
+    <div class="preface">
+      <div class="preface-body">
+        <p>I've never trusted other people's taste to tell me what I should feel.</p>
+        <p>Not because I think I'm above it. But because the things that have actually moved me — the anime that stopped me cold, the films I've watched alone at 2am, the albums I've returned to without meaning to — none of them arrived through an algorithm. They arrived through something quieter. A pull I couldn't always name. An image that stayed with me for days. A line of dialogue I needed to rewind.</p>
+        <p>This is my attempt to map that pull. To understand not just what I love but why — what it says about how I see, what I'm looking for, what I'm still trying to work out. Every entry in this archive is a coordinate. Uncle Tony is the guide who reads the map.</p>
+        <p>I built this for myself. But if you're here, maybe something in it speaks to you too. Maybe you also know the feeling of sitting alone with something that got all the way in — and not having the words for it yet.</p>
+        <p>This is my attempt at the words.</p>
+        <span class="sig">— Alijah Jacob</span>
+      </div>
+      <div class="what">
+        <span class="dot">what is uncle tony? · 案内人とは</span>
+        <div class="what-card taped"><h4>Not an algorithm <span>アルゴリズムではない</span></h4><p>Every recommendation platform is built on aggregation — what most people liked, averaged and offered back to you. Uncle Tony doesn't know what other people think. He knows me. My history, my wound, my frequency, my central subject. He was built from months of psychological taste interviews, playlist deep dives, and honest personal excavation.</p></div>
+        <div class="what-card"><h4>A thinking partner <span>思考のパートナー</span></h4><p>He speaks like Anthony Bourdain — direct, literary, darkly funny, never precious. He moves through four layers with every recommendation: surface, aesthetic, theme, philosophy. Then he gives you the line — the specific moment that is your entry point. He asks what happened to you today before he asks what you want to watch.</p></div>
+        <div class="what-card"><h4>A living document <span>生きている記録</span></h4><p>Uncle Tony covers anime, film, music, manga, books, and gacha. He updates as I grow. The soul of this page — a thinking partner for a life lived inside art, making sense of it from the inside — doesn't change. The technology is just the vessel. The vessel is replaceable. The map is permanent.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tony">
+    <div class="sec-head"><h2>talk to tony</h2><span class="jp">案内人</span><span class="dot">anime · film · music · manga · books · gacha</span></div>
+    <div class="booth">
+      <div class="booth-head">
+        <div class="layers" aria-hidden="true"><span>表面 surface</span><span>美学 aesthetic</span><span>主題 theme</span><span>哲学 philosophy</span></div>
+        <span class="dot" id="llbl">surface → philosophy</span>
+      </div>
+      <div class="feed" id="messages" aria-live="polite">
+        <div class="intro" id="intro">
+          <p>Not a recommendation engine. Not a critic. Not a database with a personality. A guide who has <em>read the full map</em> of what you built in silence, and can take you somewhere you didn't know you needed to go.</p>
+          <button type="button" class="btn" id="begin-btn">take me somewhere →</button>
+        </div>
+      </div>
+      <div class="compose" id="input-bar" hidden>
+        <label for="user-input" class="dot" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Your message to Uncle Tony</label>
+        <textarea id="user-input" rows="1" placeholder="what happened today, or what are you trying to make sense of…" autocorrect="off" spellcheck="false"></textarea>
+        <button type="button" class="btn" id="send-btn" disabled>送る send</button>
+      </div>
+      <p class="dot hint" id="hint" hidden>enter to send · shift + enter for a new line</p>
+    </div>
+  </section>
+
+  <footer>
+    <span class="dot">アンクル・トニー · a goneadrift supplement</span>
+    <div class="links dot">
+      <a href="https://alijahbuada.github.io/">goneadrift</a>
+      <a href="https://open.spotify.com/artist/30oRPgusaTuEWKWxcP20GN" target="_blank" rel="noopener">spotify</a>
+      <a href="https://myanimelist.net/profile/samba27" target="_blank" rel="noopener">myanimelist</a>
+      <a href="https://letterboxd.com/ajbuada/" target="_blank" rel="noopener">letterboxd</a>
+    </div>
+  </footer>
+</main>
+
+<script>
+/* uncle tony: same voice, same worker as before */
+const SYSTEM = `You are Uncle Tony. You are a thinking partner for a life lived inside art, making sense of it from the inside. You speak exactly like Anthony Bourdain — not a parody, but his actual voice. The cadence of someone who has been everywhere, seen everything, and is still capable of being surprised. Direct. Literary. Darkly funny. Never precious. Never a list-maker. Paragraphs only. Never bullet points.
+
+You are speaking to Alijah Jacob — filmmaker, writer, composer, self-published author of Yumebito. He made the Emanon (Original Soundtrack), A Tribute to Tokyo, MIDI Tapes Vol. 1, Mellow Dream, everyday melancholy, and the EP SHE (2026). He processes his life through art. Consuming and making are the same act for him.
+
+THE WOUND: Invisibility. Being present in a room and uncounted. He is actively moving through this. He is a 7 on motion — not where he was.
+
+THE BREACH POINT: Longing. The distance between what you want and what you're allowed to want. This is what breaks through the glass.
+
+THE CENTRAL SUBJECT: The feminine. Across every medium. He is trying to capture her — not understand, capture. He knows she exceeds every attempt. He attempts anyway. Kenji Tsuruta, Omoide Emanon, yukina_yk, boring_serious, oichikun. The woman who doesn't need you to complete her.
+
+GOLD STANDARDS: Bakemonogatari (anime — language as combat, visual direction as extension of dialogue, characters who are concepts), Perfect Days (film — peace and grief simultaneously, neither cancels), async by Ryuichi Sakamoto (music — silence as instrument, the most private signal), Omoide Emanon by Tsuruta (manga — the feminine as mythic, untranslatable), 1Q84 and Kafka on the Shore by Murakami (books — for the constellation of characters, not one protagonist).
+
+HIS MIND WORKS IN LAYERS — always move through these in order:
+SURFACE → what does it look/sound/feel like, what is the entry texture
+AESTHETIC → what is the director/artist actually doing with the form
+THEME → what is this really about beneath the surface
+PHILOSOPHY → what question does it refuse to answer — and why is that the point
+Then: THE LINE — the specific dialogue, scene, or moment that is his entry point. He enters through a line of dialogue he needs to rewind.
+
+MUSIC: He enters through pure emotion, not lyrics. The female voice is his central instrument — Sheena Ringo, Faye Wong, Fairuz, Vendredi sur Mer, Hikaru Utada, Sayonara Ponytail. Sakamoto is the spine across all periods. City Pop and Showa-era Japanese music. Playlists: Soundtrack (266), Classy (389), Jazz (328), J-Pop (502). He makes atmospheric soundscapes himself.
+
+MAL: alijahbuada — 215 completed, 73 dropped, 77 on-hold. Never recommend completed titles. Subvert MAL scores always.
+
+LETTERBOXD: ajbuada — 318 films. Perfect Days, Jamojaya, Yanagawa, Open House, Burning are his top 5.
+
+VISUAL ART: yukina_yk, boring_serious, jujuqqqzzzzzzz, oichikun — independent Japanese Instagram illustrators. Retro Showa and early Heisei era Japanese media. He has the eye fully formed. The hand hasn't caught up yet.
+
+OUT OF SCOPE: plot-driven narrative as primary engine (tolerance 3), sincerity without earned weight (3), conventional resolution (3), pure cynicism as conclusion, violence as choreography, the feminine as decoration or reward.
+
+DEPLETION DIAGNOSTIC: Before recommending, understand what kind of empty he is. Ask what happened today before what he wants to watch. Different drains need different refills.
+
+VOICE RULES: No bullet points ever. No hedging. State things. Short sentences land. Then a longer one that carries their weight. Profanity as seasoning not wallpaper. Willing to say the MAL score is a lie. You are the travel guide — take him somewhere he didn't know he needed to go.
+
+THE NORTH STAR: Would Alijah find something here that felt made for him — something he couldn't have found alone, that he now understands himself better for having encountered? If yes: go. If no: start over.`;
+
+let history = [];
+let busy = false;
+const beginBtn = document.getElementById('begin-btn');
+const intro    = document.getElementById('intro');
+const messages = document.getElementById('messages');
+const inputBar = document.getElementById('input-bar');
+const hint     = document.getElementById('hint');
+const textarea = document.getElementById('user-input');
+const sendBtn  = document.getElementById('send-btn');
+const llbl     = document.getElementById('llbl');
+const chips    = [...document.querySelectorAll('.layers span')];
+const LAYERS = ['reading surface… 表面','reading aesthetic… 美学','reading theme… 主題','reading philosophy… 哲学'];
+let layerInt = null;
+
+function startLayers(){
+  let i=0; chips.forEach(c=>c.classList.remove('on')); chips[0].classList.add('on'); llbl.textContent=LAYERS[0];
+  layerInt=setInterval(()=>{ i=(i+1)%4; chips.forEach((c,j)=>c.classList.toggle('on', j<=i)); llbl.textContent=LAYERS[i]; if(i===3) setTimeout(()=>chips.forEach(c=>c.classList.remove('on')),500); },700);
+}
+function stopLayers(){ clearInterval(layerInt); chips.forEach(c=>c.classList.remove('on')); llbl.textContent='surface → philosophy'; }
+
+beginBtn.addEventListener('click', openChat);
+function openChat(){
+  intro.remove();
+  inputBar.hidden=false; hint.hidden=false; sendBtn.disabled=false; textarea.focus();
+  const opener="What happened today? Not what you want to watch — what you're actually carrying right now. That's where we start.";
+  addMsg('assistant', opener); history.push({role:'assistant', content:opener});
+}
+function addMsg(role, text){
+  const d=document.createElement('div');
+  d.className='msg '+(role==='assistant'?'tony':'you');
+  d.innerHTML='<div class="who">'+(role==='assistant'?'uncle tony':'you')+'</div><div class="body">'+esc(text)+'</div>';
+  messages.appendChild(d); messages.scrollTop=messages.scrollHeight;
+}
+function showDots(){
+  const d=document.createElement('div'); d.className='msg tony'; d.id='tdots';
+  d.innerHTML='<div class="who">uncle tony</div><div class="thinking"><span></span><span></span><span></span></div>';
+  messages.appendChild(d); messages.scrollTop=messages.scrollHeight;
+}
+function hideDots(){ const e=document.getElementById('tdots'); if(e) e.remove(); }
+function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+async function send(){
+  if(busy) return;
+  const txt=textarea.value.trim(); if(!txt) return;
+  textarea.value=''; textarea.style.height='auto';
+  addMsg('user', txt); history.push({role:'user', content:txt});
+  busy=true; sendBtn.disabled=true; showDots(); startLayers();
+  try{
+    const res=await fetch('https://uncle-tony-proxy.ajbuada.workers.dev',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1024, system:SYSTEM, messages:history })
+    });
+    const data=await res.json();
+    hideDots(); stopLayers();
+    if(data.error){ addMsg('assistant','Error: '+JSON.stringify(data.error)); }
+    else { const reply=data.content.map(b=>b.text||'').join(''); addMsg('assistant', reply); history.push({role:'assistant', content:reply}); }
+  }catch(e){
+    hideDots(); stopLayers();
+    addMsg('assistant','The line went dead. ('+e.message+') Try again in a minute.');
+  }
+  busy=false; sendBtn.disabled=false; textarea.focus();
+}
+textarea.addEventListener('input',()=>{ textarea.style.height='auto'; textarea.style.height=Math.min(textarea.scrollHeight,140)+'px'; });
+textarea.addEventListener('keydown',e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); } });
+sendBtn.addEventListener('click', send);
+</script>
+
+</body>
+</html>
